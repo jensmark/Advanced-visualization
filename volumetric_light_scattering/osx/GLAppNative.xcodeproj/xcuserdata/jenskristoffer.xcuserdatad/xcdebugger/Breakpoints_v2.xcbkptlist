@@ -41,7 +41,7 @@
                   symbolName = "GLUtils::checkGLErrors(char const*, unsigned int)"
                   moduleName = "GLAppNative"
                   urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/volumetric_light_scattering/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "411332898.848989"
+                  timestampString = "411342159.845536"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
@@ -55,7 +55,7 @@
                   symbolName = "GLUtils::checkGLErrors(char const*, unsigned int)"
                   moduleName = "GLAppNative"
                   urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/volumetric_light_scattering/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "411332898.849387"
+                  timestampString = "411342159.845901"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
@@ -87,7 +87,7 @@
                   symbolName = "GLUtils::checkGLFBOCompleteness(char const*, unsigned int)"
                   moduleName = "GLAppNative"
                   urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/volumetric_light_scattering/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "411332898.85007"
+                  timestampString = "411342159.84626"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -101,7 +101,7 @@
                   symbolName = "GLUtils::checkGLFBOCompleteness(char const*, unsigned int)"
                   moduleName = "GLAppNative"
                   urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/volumetric_light_scattering/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "411332898.850519"
+                  timestampString = "411342159.846651"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -117,13 +117,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GLAppNative/AppManager.cpp"
-            timestampString = "411329196.20219"
+            filePath = "GLAppNative/Model.cpp"
+            timestampString = "411333895.028453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "AppManager::render()"
+            startingLineNumber = "7"
+            endingLineNumber = "7"
+            landmarkName = "Model::Model(std::string filename, bool invert)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -134,13 +134,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GLAppNative/AppManager.cpp"
-            timestampString = "411329196.20219"
+            timestampString = "411342007.386339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "E(float rho, float u, float v, float gamma, float p)"
-            landmarkType = "7">
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "AppManager::render()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

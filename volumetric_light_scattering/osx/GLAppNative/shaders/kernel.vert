@@ -2,7 +2,7 @@
 
 in vec2 position;
 
-out vec2 uv;
+smooth out vec2 uv;
 
 void main() {
     uv = vec2(0.5)+(position)*0.5;

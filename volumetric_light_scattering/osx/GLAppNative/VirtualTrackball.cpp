@@ -4,38 +4,28 @@
 #include <algorithm>
 
 glm::mat4 quatToMat4(glm::quat m_q) {
-	glm::mat4 m;
-	float xx = m_q.x*m_q.x;
-	float xy = m_q.x*m_q.y;
-	float xz = m_q.x*m_q.z;
-	float xw = m_q.x*m_q.w;
-	float yy = m_q.y*m_q.y;
-	float yz = m_q.y*m_q.z;
-	float yw = m_q.y*m_q.w;
-	float zz = m_q.z*m_q.z;
-	float zw = m_q.z*m_q.w;
-
-	m[0][0] = 1.0f-2.0f*(yy+zz);
-	m[0][1] =     2.0f*(xy+zw);
-	m[0][2] =     2.0f*(xz-yw);
-
-	m[1][0] =     2.0f*(xy-zw);
-	m[1][1] = 1.0f-2.0f*(xx+zz);
-	m[1][2] =     2.0f*(yz+xw);
-
-	m[2][0] =     2.0f*(xz+yw);
-	m[2][1] =     2.0f*(yz-xw);
-	m[2][2] = 1.0f-2.0f*(xx+yy);
-
-	m[0][3] = 0.0f;
-	m[1][3] = 0.0f;
-	m[2][3] = 0.0f;
-	m[3][0] = 0.0f;
-	m[3][1] = 0.0f;
-	m[3][2] = 0.0f;
-	m[3][3] = 1.0f;
-
-	return glm::transpose(m);
+    /**
+     * Implement so that the we generate the correct transformation
+     * matrix from the input quaternion
+     */
+	glm::quat q;
+    
+	// normalize quaterion if longer then 1.0
+	if(glm::length(m_q) > 1.0){
+		q = glm::normalize(m_q);
+	}else{
+		q = m_q;
+	}
+    
+	//glm::mat4 m = glm::toMat4(q);
+    
+	// create rotation matrix
+	glm::mat4 m(1 - (2 * (pow(q.y, 2) + pow(q.z, 2))), 2 * (q.x * q.y - q.w * q.z),   2 * (q.x * q.z + q.w * q.y),   0,
+                2 * (q.x * q.y + q.w * q.z),    1 - (2 * (pow(q.x, 2) + pow(q.z, 2))), 2 * (q.y * q.z - q.w * q.x),   0,
+                2 * (q.x * q.z - q.w * q.y),    2 * (q.y * q.z + q.w * q.x),   1 - (2 * (pow(q.x, 2) + pow(q.y, 2))), 0,
+                0,          0,          0,          1);
+    
+	return m;
 }
 
 VirtualTrackball::VirtualTrackball() {
@@ -58,19 +48,28 @@ void VirtualTrackball::rotateEnd(int x, int y) {
 	view_quat_old = view_quat_new;
 }
 
-void VirtualTrackball::rotate(int x, int y, float zoom) {
-	//If not rotating, simply return the old rotation matrix
+void VirtualTrackball::rotate(int x, int y) {
+    //If not rotating, simply return the old rotation matrix
 	if (!rotating) return;
-
+    
 	glm::vec3 point_on_sphere_end; //Current point on unit sphere
 	glm::vec3 axis_of_rotation; //axis of rotation
-	float theta; //angle of rotation
-
+	float theta = 0.0f; //angle of rotation
+    
 	point_on_sphere_end = getClosestPointOnUnitSphere(x, y);
-	theta = acos(glm::dot(point_on_sphere_begin, point_on_sphere_end)) * 180.0f / (std::max(1.0f, zoom)*M_PI);
-
-	axis_of_rotation = glm::normalize(glm::cross(point_on_sphere_end, point_on_sphere_begin));
-
+    
+	/**
+	 * normalize vectors if needed
+	 */
+	point_on_sphere_begin = glm::normalize(point_on_sphere_begin);
+	point_on_sphere_end = glm::normalize(point_on_sphere_end);
+    
+    
+	// get angle and rotation axis
+	theta = glm::degrees(glm::acos(glm::dot(point_on_sphere_begin, point_on_sphere_end)));
+	axis_of_rotation = glm::cross(point_on_sphere_end, point_on_sphere_begin);
+    
+	// rotate quatrion
 	view_quat_new = glm::rotate(view_quat_old, theta, axis_of_rotation);
 }
 

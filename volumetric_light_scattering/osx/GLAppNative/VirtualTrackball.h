@@ -31,7 +31,7 @@ public:
 	  * the camera using the "virtual trackball".
 	  * Does nothing if we have not called rotateBegin first.
 	  */
-	void rotate(int x, int y, float zoom);
+	void rotate(int x, int y);
 
 	/**
 	  * Returns the transformation matrix from the current quaternion

@@ -15,6 +15,8 @@
 
 #include "Timer.hpp"
 #include "TextureFBO.h"
+#include "VirtualTrackball.h"
+#include "Model.h"
 
 using namespace GLUtils;
 
@@ -110,8 +112,33 @@ private:
     
     // Timer
     Timer timer;
+    static VirtualTrackball trackball;
     
-    GLuint vao;
+    // Screen quad
+    BO<GL_ARRAY_BUFFER>* vert;
+    BO<GL_ELEMENT_ARRAY_BUFFER>* ind;
+    
+    // Model to render
+    Model* model;
+    GLuint vao[2];
+    
+    // Programs
+    Program* phong;
+    Program* scatter;
+    
+    // FBOs
+    TextureFBO* buffer;
+
+    struct {
+		glm::vec3 position;
+		glm::mat4 projection;
+		glm::mat4 view;
+	} light;
+    
+	struct {
+		glm::mat4 projection;
+		glm::mat4 view;
+	} camera;
 };
 
 #endif

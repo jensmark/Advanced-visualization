@@ -28,6 +28,10 @@
 		82D7941C18845F63003AE2AE /* VirtualTrackball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82D7941918845F63003AE2AE /* VirtualTrackball.cpp */; };
 		82D7941F188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941D188461B8003AE2AE /* libassimp.3.0.255.dylib */; };
 		82D79420188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941E188461B8003AE2AE /* libassimp.3.0.255.dylib */; };
+		82D7942318847546003AE2AE /* phong.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D79421188472F5003AE2AE /* phong.frag */; };
+		82D7942418847546003AE2AE /* trans.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D79422188472F5003AE2AE /* trans.vert */; };
+		82D794271884757C003AE2AE /* bunny.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D7942518847565003AE2AE /* bunny.obj */; };
+		82D7942918848BA5003AE2AE /* scatter.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D7942818848558003AE2AE /* scatter.frag */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +41,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				82D7942918848BA5003AE2AE /* scatter.frag in CopyFiles */,
+				82D794271884757C003AE2AE /* bunny.obj in CopyFiles */,
+				82D7942318847546003AE2AE /* phong.frag in CopyFiles */,
+				82D7942418847546003AE2AE /* trans.vert in CopyFiles */,
 				82039AD9186F6672000A0A55 /* kernel.vert in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,6 +83,10 @@
 		82D7941A18845F63003AE2AE /* VirtualTrackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualTrackball.h; sourceTree = "<group>"; };
 		82D7941D188461B8003AE2AE /* libassimp.3.0.255.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.0.255.dylib; path = ../../../../../../../usr/local/Cellar/assimp/3.0.1270/lib/libassimp.3.0.255.dylib; sourceTree = "<group>"; };
 		82D7941E188461B8003AE2AE /* libassimp.3.0.255.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.0.255.dylib; path = ../../../../../../../usr/local/Cellar/assimp/3.0.1270/lib/libassimp.3.0.255.dylib; sourceTree = "<group>"; };
+		82D79421188472F5003AE2AE /* phong.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = phong.frag; path = shaders/phong.frag; sourceTree = "<group>"; };
+		82D79422188472F5003AE2AE /* trans.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = trans.vert; path = shaders/trans.vert; sourceTree = "<group>"; };
+		82D7942518847565003AE2AE /* bunny.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = bunny.obj; path = GLAppNative/models/bunny.obj; sourceTree = "<group>"; };
+		82D7942818848558003AE2AE /* scatter.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = scatter.frag; path = shaders/scatter.frag; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +145,7 @@
 				82039ADC186F6B11000A0A55 /* AppManager.h */,
 				82039ADD186F6C07000A0A55 /* AppManager.cpp */,
 				820399AC186F1FBF000A0A55 /* main.cpp */,
+				82D794261884756A003AE2AE /* models */,
 				82039ACF186F65CF000A0A55 /* shaders */,
 				82039AC9186F654C000A0A55 /* GLUtils */,
 			);
@@ -175,9 +188,21 @@
 		82039ACF186F65CF000A0A55 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				82D79421188472F5003AE2AE /* phong.frag */,
+				82D79422188472F5003AE2AE /* trans.vert */,
 				82039AD0186F65E0000A0A55 /* kernel.vert */,
+				82D7942818848558003AE2AE /* scatter.frag */,
 			);
 			name = shaders;
+			sourceTree = "<group>";
+		};
+		82D794261884756A003AE2AE /* models */ = {
+			isa = PBXGroup;
+			children = (
+				82D7942518847565003AE2AE /* bunny.obj */,
+			);
+			name = models;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
