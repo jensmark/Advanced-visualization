@@ -12,11 +12,18 @@
 		82039AC0186F3C8A000A0A55 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82039ABF186F3C8A000A0A55 /* CoreVideo.framework */; };
 		82039AC2186F3C96000A0A55 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82039AC1186F3C96000A0A55 /* IOKit.framework */; };
 		82039AC4186F3C9E000A0A55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82039AC3186F3C9E000A0A55 /* Cocoa.framework */; };
-		82039AC6186F4631000A0A55 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82039AC5186F4631000A0A55 /* libglfw3.a */; };
-		82039AC8186F464A000A0A55 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82039AC7186F464A000A0A55 /* libGLEW.a */; };
 		82039AD8186F65E9000A0A55 /* TextureFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82039AD6186F65E9000A0A55 /* TextureFBO.cpp */; };
 		82039AD9186F6672000A0A55 /* kernel.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82039AD0186F65E0000A0A55 /* kernel.vert */; };
 		82039ADE186F6C07000A0A55 /* AppManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82039ADD186F6C07000A0A55 /* AppManager.cpp */; };
+		82D7940C18845DAC003AE2AE /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940518845DAC003AE2AE /* libglfw3.a */; };
+		82D7940D18845DAC003AE2AE /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940618845DAC003AE2AE /* libIL.a */; };
+		82D7940E18845DAC003AE2AE /* libILU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940718845DAC003AE2AE /* libILU.a */; };
+		82D7940F18845DAC003AE2AE /* libILUT.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940818845DAC003AE2AE /* libILUT.a */; };
+		82D7941018845DAC003AE2AE /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940918845DAC003AE2AE /* libjpeg.a */; };
+		82D7941118845DAC003AE2AE /* libpng15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940A18845DAC003AE2AE /* libpng15.a */; };
+		82D7941218845DAC003AE2AE /* libpng15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940B18845DAC003AE2AE /* libpng15.a */; };
+		82D7941518845E3B003AE2AE /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941318845E3B003AE2AE /* libGLEW.a */; };
+		82D7941618845E3B003AE2AE /* libGLEWmx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941418845E3B003AE2AE /* libGLEWmx.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +58,15 @@
 		82039ADC186F6B11000A0A55 /* AppManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
 		82039ADD186F6C07000A0A55 /* AppManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppManager.cpp; sourceTree = "<group>"; };
 		82039ADF186F7767000A0A55 /* Timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
+		82D7940518845DAC003AE2AE /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../../../../usr/local/lib/libglfw3.a; sourceTree = "<group>"; };
+		82D7940618845DAC003AE2AE /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIL.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libIL.a; sourceTree = "<group>"; };
+		82D7940718845DAC003AE2AE /* libILU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libILU.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libILU.a; sourceTree = "<group>"; };
+		82D7940818845DAC003AE2AE /* libILUT.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libILUT.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libILUT.a; sourceTree = "<group>"; };
+		82D7940918845DAC003AE2AE /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../../../../../../../usr/local/Cellar/jpeg/8d/lib/libjpeg.a; sourceTree = "<group>"; };
+		82D7940A18845DAC003AE2AE /* libpng15.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng15.a; path = ../../../../../../../usr/local/Cellar/libpng/1.5.17/lib/libpng15.a; sourceTree = "<group>"; };
+		82D7940B18845DAC003AE2AE /* libpng15.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng15.a; path = ../../../../../../../usr/local/Cellar/libpng/1.5.17/lib/libpng15.a; sourceTree = "<group>"; };
+		82D7941318845E3B003AE2AE /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../../../../usr/lib/libGLEW.a; sourceTree = "<group>"; };
+		82D7941418845E3B003AE2AE /* libGLEWmx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEWmx.a; path = ../../../../../../../usr/lib/libGLEWmx.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +74,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82039AC8186F464A000A0A55 /* libGLEW.a in Frameworks */,
-				82039AC6186F4631000A0A55 /* libglfw3.a in Frameworks */,
+				82D7941518845E3B003AE2AE /* libGLEW.a in Frameworks */,
+				82D7941618845E3B003AE2AE /* libGLEWmx.a in Frameworks */,
+				82D7940C18845DAC003AE2AE /* libglfw3.a in Frameworks */,
+				82D7940D18845DAC003AE2AE /* libIL.a in Frameworks */,
+				82D7940E18845DAC003AE2AE /* libILU.a in Frameworks */,
+				82D7940F18845DAC003AE2AE /* libILUT.a in Frameworks */,
+				82D7941018845DAC003AE2AE /* libjpeg.a in Frameworks */,
+				82D7941118845DAC003AE2AE /* libpng15.a in Frameworks */,
+				82D7941218845DAC003AE2AE /* libpng15.a in Frameworks */,
 				82039AC4186F3C9E000A0A55 /* Cocoa.framework in Frameworks */,
 				82039AC2186F3C96000A0A55 /* IOKit.framework in Frameworks */,
 				82039AC0186F3C8A000A0A55 /* CoreVideo.framework in Frameworks */,
@@ -105,6 +128,15 @@
 		820399BB186F2045000A0A55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				82D7941318845E3B003AE2AE /* libGLEW.a */,
+				82D7941418845E3B003AE2AE /* libGLEWmx.a */,
+				82D7940518845DAC003AE2AE /* libglfw3.a */,
+				82D7940618845DAC003AE2AE /* libIL.a */,
+				82D7940718845DAC003AE2AE /* libILU.a */,
+				82D7940818845DAC003AE2AE /* libILUT.a */,
+				82D7940918845DAC003AE2AE /* libjpeg.a */,
+				82D7940A18845DAC003AE2AE /* libpng15.a */,
+				82D7940B18845DAC003AE2AE /* libpng15.a */,
 				82039AC7186F464A000A0A55 /* libGLEW.a */,
 				82039AC5186F4631000A0A55 /* libglfw3.a */,
 				82039AC3186F3C9E000A0A55 /* Cocoa.framework */,
@@ -273,13 +305,18 @@
 					"/Users/jenskristoffer/Documents/lib/glm/include/**",
 					"/Users/jenskristoffer/Documents/lib/glfw/include/**",
 					"/Users/jenskristoffer/Documents/lib/glew/include/**",
+					"/usr/local/Cellar/assimp/3.0.1270/include/**",
+					"/usr/local/Cellar/devil/1.7.8/include/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jenskristoffer/Documents/lib/glew/lib,
 					/Users/jenskristoffer/Documents/lib/glfw/bin,
-					/usr/local/lib,
-					/usr/lib,
+					"/usr/local/lib/**",
+					"/usr/lib/**",
+					/usr/local/Cellar/devil/1.7.8/lib,
+					/usr/local/Cellar/jpeg/8d/lib,
+					/usr/local/Cellar/libpng/1.5.17/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -293,8 +330,11 @@
 					"$(inherited)",
 					/Users/jenskristoffer/Documents/lib/glew/lib,
 					/Users/jenskristoffer/Documents/lib/glfw/bin,
-					/usr/local/lib,
-					/usr/lib,
+					"/usr/local/lib/**",
+					"/usr/lib/**",
+					/usr/local/Cellar/devil/1.7.8/lib,
+					/usr/local/Cellar/jpeg/8d/lib,
+					/usr/local/Cellar/libpng/1.5.17/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
