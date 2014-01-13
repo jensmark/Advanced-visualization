@@ -110,7 +110,11 @@ void AppManager::render(){
     
     light.position.x = glm::sin(timer.elapsed());
     
-    glm::vec3 screen_light_pos = glm::normalize(glm::project(light.position, view_matrix_new, camera.projection, glm::vec4(0.0f,0.0f, (float)window_width*2, (float)window_height*2)));
+    glm::vec3 screen_light_pos = glm::project(light.position, view_matrix_new, camera.projection, glm::vec4(0.0f,0.0f, (float)window_width*2, (float)window_height*2));
+    screen_light_pos.x -= (float)(window_width*2) * 0.5f;
+    screen_light_pos.y -= (float)(window_height*2) * 0.5f;
+    screen_light_pos = glm::normalize(screen_light_pos);
+    
     glUniform3fv(scatter->getUniform("screen_light_pos"), 1, glm::value_ptr(screen_light_pos));
     
     glActiveTexture(GL_TEXTURE0);
@@ -188,10 +192,10 @@ void AppManager::createProgram(){
     scatter->use();
     glUniform1i(scatter->getUniform("frame"), 0);
     glUniform1i(scatter->getUniform("n_samples"), 25);
-    glUniform1f(scatter->getUniform("density"), 0.2f);
+    glUniform1f(scatter->getUniform("density"), 0.1f);
     glUniform1f(scatter->getUniform("weight"), 1.0f);
-    glUniform1f(scatter->getUniform("decay"), 0.9f);
-    glUniform1f(scatter->getUniform("exposure"), 0.4f);
+    glUniform1f(scatter->getUniform("decay"), 0.8f);
+    glUniform1f(scatter->getUniform("exposure"), 0.7f);
     scatter->disuse();
     
     CHECK_GL_ERRORS();
