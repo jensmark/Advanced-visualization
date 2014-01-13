@@ -24,6 +24,10 @@
 		82D7941218845DAC003AE2AE /* libpng15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940B18845DAC003AE2AE /* libpng15.a */; };
 		82D7941518845E3B003AE2AE /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941318845E3B003AE2AE /* libGLEW.a */; };
 		82D7941618845E3B003AE2AE /* libGLEWmx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941418845E3B003AE2AE /* libGLEWmx.a */; };
+		82D7941B18845F63003AE2AE /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82D7941718845F63003AE2AE /* Model.cpp */; };
+		82D7941C18845F63003AE2AE /* VirtualTrackball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82D7941918845F63003AE2AE /* VirtualTrackball.cpp */; };
+		82D7941F188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941D188461B8003AE2AE /* libassimp.3.0.255.dylib */; };
+		82D79420188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941E188461B8003AE2AE /* libassimp.3.0.255.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,8 +50,6 @@
 		82039ABF186F3C8A000A0A55 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		82039AC1186F3C96000A0A55 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		82039AC3186F3C9E000A0A55 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		82039AC5186F4631000A0A55 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../../usr/local/lib/libglfw3.a; sourceTree = "<group>"; };
-		82039AC7186F464A000A0A55 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../../usr/lib/libGLEW.a; sourceTree = "<group>"; };
 		82039ACA186F6560000A0A55 /* BO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BO.hpp; path = GLUtils/BO.hpp; sourceTree = "<group>"; };
 		82039ACB186F6560000A0A55 /* GLException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLException.h; path = GLUtils/GLException.h; sourceTree = "<group>"; };
 		82039ACC186F6560000A0A55 /* GLUtils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLUtils.hpp; path = GLUtils/GLUtils.hpp; sourceTree = "<group>"; };
@@ -67,6 +69,12 @@
 		82D7940B18845DAC003AE2AE /* libpng15.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng15.a; path = ../../../../../../../usr/local/Cellar/libpng/1.5.17/lib/libpng15.a; sourceTree = "<group>"; };
 		82D7941318845E3B003AE2AE /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../../../../usr/lib/libGLEW.a; sourceTree = "<group>"; };
 		82D7941418845E3B003AE2AE /* libGLEWmx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEWmx.a; path = ../../../../../../../usr/lib/libGLEWmx.a; sourceTree = "<group>"; };
+		82D7941718845F63003AE2AE /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
+		82D7941818845F63003AE2AE /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		82D7941918845F63003AE2AE /* VirtualTrackball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualTrackball.cpp; sourceTree = "<group>"; };
+		82D7941A18845F63003AE2AE /* VirtualTrackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualTrackball.h; sourceTree = "<group>"; };
+		82D7941D188461B8003AE2AE /* libassimp.3.0.255.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.0.255.dylib; path = ../../../../../../../usr/local/Cellar/assimp/3.0.1270/lib/libassimp.3.0.255.dylib; sourceTree = "<group>"; };
+		82D7941E188461B8003AE2AE /* libassimp.3.0.255.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.0.255.dylib; path = ../../../../../../../usr/local/Cellar/assimp/3.0.1270/lib/libassimp.3.0.255.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D7941F188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */,
+				82D79420188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */,
 				82D7941518845E3B003AE2AE /* libGLEW.a in Frameworks */,
 				82D7941618845E3B003AE2AE /* libGLEWmx.a in Frameworks */,
 				82D7940C18845DAC003AE2AE /* libglfw3.a in Frameworks */,
@@ -113,6 +123,10 @@
 		820399AB186F1FBF000A0A55 /* GLAppNative */ = {
 			isa = PBXGroup;
 			children = (
+				82D7941718845F63003AE2AE /* Model.cpp */,
+				82D7941818845F63003AE2AE /* Model.h */,
+				82D7941918845F63003AE2AE /* VirtualTrackball.cpp */,
+				82D7941A18845F63003AE2AE /* VirtualTrackball.h */,
 				82039ADF186F7767000A0A55 /* Timer.hpp */,
 				82039AD6186F65E9000A0A55 /* TextureFBO.cpp */,
 				82039AD7186F65E9000A0A55 /* TextureFBO.h */,
@@ -128,6 +142,8 @@
 		820399BB186F2045000A0A55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				82D7941D188461B8003AE2AE /* libassimp.3.0.255.dylib */,
+				82D7941E188461B8003AE2AE /* libassimp.3.0.255.dylib */,
 				82D7941318845E3B003AE2AE /* libGLEW.a */,
 				82D7941418845E3B003AE2AE /* libGLEWmx.a */,
 				82D7940518845DAC003AE2AE /* libglfw3.a */,
@@ -137,8 +153,6 @@
 				82D7940918845DAC003AE2AE /* libjpeg.a */,
 				82D7940A18845DAC003AE2AE /* libpng15.a */,
 				82D7940B18845DAC003AE2AE /* libpng15.a */,
-				82039AC7186F464A000A0A55 /* libGLEW.a */,
-				82039AC5186F4631000A0A55 /* libglfw3.a */,
 				82039AC3186F3C9E000A0A55 /* Cocoa.framework */,
 				82039AC1186F3C96000A0A55 /* IOKit.framework */,
 				82039ABF186F3C8A000A0A55 /* CoreVideo.framework */,
@@ -217,9 +231,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D7941C18845F63003AE2AE /* VirtualTrackball.cpp in Sources */,
 				82039ADE186F6C07000A0A55 /* AppManager.cpp in Sources */,
 				82039AD8186F65E9000A0A55 /* TextureFBO.cpp in Sources */,
 				820399AD186F1FBF000A0A55 /* main.cpp in Sources */,
+				82D7941B18845F63003AE2AE /* Model.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,7 +318,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = (
-					"/Users/jenskristoffer/Documents/lib/glm/include/**",
+					"/usr/local/Cellar/glm/0.9.4.6/include/**",
 					"/Users/jenskristoffer/Documents/lib/glfw/include/**",
 					"/Users/jenskristoffer/Documents/lib/glew/include/**",
 					"/usr/local/Cellar/assimp/3.0.1270/include/**",
@@ -317,6 +333,7 @@
 					/usr/local/Cellar/devil/1.7.8/lib,
 					/usr/local/Cellar/jpeg/8d/lib,
 					/usr/local/Cellar/libpng/1.5.17/lib,
+					/usr/local/Cellar/assimp/3.0.1270/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -335,6 +352,7 @@
 					/usr/local/Cellar/devil/1.7.8/lib,
 					/usr/local/Cellar/jpeg/8d/lib,
 					/usr/local/Cellar/libpng/1.5.17/lib,
+					/usr/local/Cellar/assimp/3.0.1270/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
