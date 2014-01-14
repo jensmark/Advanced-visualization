@@ -40,8 +40,8 @@
                   continueAfterRunningActions = "No"
                   symbolName = "GLUtils::checkGLErrors(char const*, unsigned int)"
                   moduleName = "GLAppNative"
-                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/motion_blur/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "411399384.655906"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/multiple_reflections%20and%20refractions/osx/GLAppNative/GLUtils/GLUtils.hpp"
+                  timestampString = "411399378.854257"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
@@ -54,8 +54,8 @@
                   continueAfterRunningActions = "No"
                   symbolName = "GLUtils::checkGLErrors(char const*, unsigned int)"
                   moduleName = "GLAppNative"
-                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/motion_blur/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "411399384.656337"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/multiple_reflections%20and%20refractions/osx/GLAppNative/GLUtils/GLUtils.hpp"
+                  timestampString = "411399378.854884"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
@@ -86,8 +86,8 @@
                   continueAfterRunningActions = "No"
                   symbolName = "GLUtils::checkGLFBOCompleteness(char const*, unsigned int)"
                   moduleName = "GLAppNative"
-                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/motion_blur/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "411399384.656977"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/multiple_reflections%20and%20refractions/osx/GLAppNative/GLUtils/GLUtils.hpp"
+                  timestampString = "411399378.855269"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -100,8 +100,8 @@
                   continueAfterRunningActions = "No"
                   symbolName = "GLUtils::checkGLFBOCompleteness(char const*, unsigned int)"
                   moduleName = "GLAppNative"
-                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/motion_blur/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "411399384.657282"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/multiple_reflections%20and%20refractions/osx/GLAppNative/GLUtils/GLUtils.hpp"
+                  timestampString = "411399378.855699"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -124,22 +124,6 @@
             startingLineNumber = "7"
             endingLineNumber = "7"
             landmarkName = "Model::Model(std::string filename, bool invert)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GLAppNative/AppManager.cpp"
-            timestampString = "411348512.626601"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
-            landmarkName = "AppManager::createFBO()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
