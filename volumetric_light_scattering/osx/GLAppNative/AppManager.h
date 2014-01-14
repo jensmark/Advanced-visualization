@@ -49,6 +49,11 @@ private:
 	 */
 	void quit();
     
+    /**
+	 * Function that handles rendering into the OpenGL context
+	 */
+    void renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor);
+    
 	/**
 	 * Function that handles rendering into the OpenGL context
 	 */
@@ -125,9 +130,11 @@ private:
     // Programs
     Program* phong;
     Program* scatter;
+    Program* prepass;
     
     // FBOs
     TextureFBO* buffer;
+    TextureFBO* prepass_buffer;
 
     struct {
 		glm::vec3 position;

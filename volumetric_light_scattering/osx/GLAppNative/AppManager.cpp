@@ -39,7 +39,7 @@ void AppManager::init(){
                     window_width / (float) window_height, 1.0f, 50.0f);
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
     
-    light.position = glm::vec3(0.0f,0.0f,-2.0f);
+    light.position = glm::vec3(0.0f,0.0f,-5.0f);
     //light.view = glm::lookAt(light.position, glm::vec3(0.0f), glm::vec3(0.0f,1.0f,0.0f));
     //light.projection = glm::perspective(45.0f, 1.0f, 1.0f, 50.0f);
     
@@ -68,7 +68,9 @@ void AppManager::quit(){
     delete phong;
     delete model;
     delete scatter;
+    delete prepass;
     delete buffer;
+    delete prepass_buffer;
     delete vert;
     delete ind;
     
@@ -76,31 +78,37 @@ void AppManager::quit(){
     glfwTerminate();
 }
 
-
-void AppManager::render(){
-    buffer->bind();
+void AppManager::renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor){
+    target->bind();
     glViewport(0, 0, window_width, window_height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
+    shader->use();
+    glBindVertexArray(vao[0]);
+    
+    glUniformMatrix4fv(shader->getUniform("projection_matrix"), 1, 0, glm::value_ptr(proj));
+    glUniformMatrix4fv(shader->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(mw));
+    glUniformMatrix3fv(shader->getUniform("normal_matrix"), 1, 0, glm::value_ptr(nor));
+    glUniform3fv(shader->getUniform("light_pos"), 1, glm::value_ptr(light.position));
+    
+    glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
+    
+    glBindVertexArray(0);
+    shader->disuse();
+    
+    target->unbind();
+}
+
+void AppManager::render(){
     //Create the new view matrix that takes the trackball view into account
 	glm::mat4 view_matrix_new = camera.view*trackball.getTransform();
     glm::mat4 model_view_matrix = view_matrix_new*model->getTransform();
     glm::mat3 normal_matrix = glm::mat3(glm::inverse(model_view_matrix));
     
-    phong->use();
-    glBindVertexArray(vao[0]);
-    
-    glUniformMatrix4fv(phong->getUniform("projection_matrix"), 1, 0, glm::value_ptr(camera.projection));
-    glUniformMatrix4fv(phong->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(model_view_matrix));
-    glUniformMatrix3fv(phong->getUniform("normal_matrix"), 1, 0, glm::value_ptr(normal_matrix));
-    glUniform3fv(phong->getUniform("light_pos"), 1, glm::value_ptr(light.position));
-    
-    glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
-    
-    glBindVertexArray(0);
-    phong->disuse();
-    
-    buffer->unbind();
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    renderModel(prepass_buffer, prepass, camera.projection, model_view_matrix, normal_matrix);
+    glClearColor(0.0, 0.5, 0.5, 1.0);
+    renderModel(buffer, phong, camera.projection, model_view_matrix, normal_matrix);
     
     glViewport(0, 0, window_width*2, window_height*2);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -118,6 +126,9 @@ void AppManager::render(){
     glUniform3fv(scatter->getUniform("screen_light_pos"), 1, glm::value_ptr(screen_light_pos));
     
     glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, prepass_buffer->getTexture());
+    
+    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, buffer->getTexture());
     
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, BUFFER_OFFSET(0));
@@ -180,6 +191,7 @@ void AppManager::createProgram(){
     //Build programs
     phong = new Program("trans.vert","phong.frag");
     scatter = new Program("kernel.vert", "scatter.frag");
+    prepass = new Program("trans.vert", "prepass.frag");
     
     //Set uniforms
     phong->use();
@@ -190,7 +202,8 @@ void AppManager::createProgram(){
     phong->disuse();
     
     scatter->use();
-    glUniform1i(scatter->getUniform("frame"), 0);
+    glUniform1i(scatter->getUniform("prepass"), 0);
+    glUniform1i(scatter->getUniform("frame"), 1);
     glUniform1i(scatter->getUniform("n_samples"), 25);
     glUniform1f(scatter->getUniform("density"), 0.1f);
     glUniform1f(scatter->getUniform("weight"), 1.0f);
@@ -237,6 +250,7 @@ void AppManager::createVAO(){
 
 void AppManager::createFBO(){
     buffer = new TextureFBO(window_width, window_height, GL_RGBA);
+    prepass_buffer = new TextureFBO(window_width, window_height, GL_RGBA);
     
     CHECK_GL_ERRORS();
 }

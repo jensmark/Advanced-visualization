@@ -15,6 +15,7 @@
 		82039AD8186F65E9000A0A55 /* TextureFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82039AD6186F65E9000A0A55 /* TextureFBO.cpp */; };
 		82039AD9186F6672000A0A55 /* kernel.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82039AD0186F65E0000A0A55 /* kernel.vert */; };
 		82039ADE186F6C07000A0A55 /* AppManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82039ADD186F6C07000A0A55 /* AppManager.cpp */; };
+		82ACAB5918856B9D00E88A15 /* prepass.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82ACAB581885698900E88A15 /* prepass.frag */; };
 		82D7940C18845DAC003AE2AE /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940518845DAC003AE2AE /* libglfw3.a */; };
 		82D7940D18845DAC003AE2AE /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940618845DAC003AE2AE /* libIL.a */; };
 		82D7940E18845DAC003AE2AE /* libILU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940718845DAC003AE2AE /* libILU.a */; };
@@ -41,6 +42,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				82ACAB5918856B9D00E88A15 /* prepass.frag in CopyFiles */,
 				82D7942918848BA5003AE2AE /* scatter.frag in CopyFiles */,
 				82D794271884757C003AE2AE /* bunny.obj in CopyFiles */,
 				82D7942318847546003AE2AE /* phong.frag in CopyFiles */,
@@ -68,6 +70,7 @@
 		82039ADC186F6B11000A0A55 /* AppManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
 		82039ADD186F6C07000A0A55 /* AppManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppManager.cpp; sourceTree = "<group>"; };
 		82039ADF186F7767000A0A55 /* Timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
+		82ACAB581885698900E88A15 /* prepass.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = prepass.frag; path = shaders/prepass.frag; sourceTree = "<group>"; };
 		82D7940518845DAC003AE2AE /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../../../../usr/local/lib/libglfw3.a; sourceTree = "<group>"; };
 		82D7940618845DAC003AE2AE /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIL.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libIL.a; sourceTree = "<group>"; };
 		82D7940718845DAC003AE2AE /* libILU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libILU.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libILU.a; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 				82D79422188472F5003AE2AE /* trans.vert */,
 				82039AD0186F65E0000A0A55 /* kernel.vert */,
 				82D7942818848558003AE2AE /* scatter.frag */,
+				82ACAB581885698900E88A15 /* prepass.frag */,
 			);
 			name = shaders;
 			sourceTree = "<group>";
