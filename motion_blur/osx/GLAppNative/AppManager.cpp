@@ -39,7 +39,7 @@ void AppManager::init(){
                     window_width / (float) window_height, 1.0f, 50.0f);
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
     
-    light.position = glm::vec3(0.0f,0.0f,-10.0f);
+    light.position = glm::vec3(0.0f,0.0f,10.0f);
     //light.view = glm::lookAt(light.position, glm::vec3(0.0f), glm::vec3(0.0f,1.0f,0.0f));
     //light.projection = glm::perspective(45.0f, 1.0f, 1.0f, 50.0f);
     

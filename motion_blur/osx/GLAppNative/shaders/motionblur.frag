@@ -21,7 +21,7 @@ void main() {
     vec4 ppos   = view_projection_prev_matrix * pos;
     
     ppos /= ppos.w;
-    vec2 vel    = (cpos.xy-ppos.xy)*0.01f;
+    vec2 vel    = (cpos.xy-ppos.xy)*0.008f;
     vec4 color  = texture(frame, uv);
     vec2 tuv    = uv+vel;
     
