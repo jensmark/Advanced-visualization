@@ -13,6 +13,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform2.hpp>
 
+#include <IL/il.h>
+#include <IL/ilu.h>
+
 // Static decleration
 VirtualTrackball AppManager::trackball;
 
@@ -29,11 +32,27 @@ void AppManager::init(){
     }
     glfwSetErrorCallback(error_callback);
     
+    ilInit();
+    iluInit();
+    
     createOpenGLContext();
     setOpenGLStates();
     
     trackball.setWindowSize(window_width, window_height);
-    model = new Model("bunny.obj", false);
+    model = new Model("sphere.obj", false);
+    
+    srand((unsigned)time(0));
+   
+    for (size_t i = 0; i < 3; i++) {
+        float tx = (rand() / (float) RAND_MAX - 0.5f) * 4.0f;
+		float ty = (rand() / (float) RAND_MAX - 0.5f) * 4.0f;
+		float tz = (rand() / (float) RAND_MAX - 0.5f) * 4.0f;
+        
+        std::cout << tx << " " << ty << " " << tz << std::endl;
+        
+        trans[i] = glm::scale(model->getTransform(), glm::vec3(0.8f));
+        trans[i] = glm::translate(trans[i], glm::vec3(tx,ty,tz));
+    }
     
     camera.projection = glm::perspective(45.0f,
                     window_width / (float) window_height, 1.0f, 50.0f);
@@ -42,6 +61,8 @@ void AppManager::init(){
     light.position = glm::vec3(0.0f,0.0f,10.0f);
     //light.view = glm::lookAt(light.position, glm::vec3(0.0f), glm::vec3(0.0f,1.0f,0.0f));
     //light.projection = glm::perspective(45.0f, 1.0f, 1.0f, 50.0f);
+    
+    cubemap = new CubeMap("","jpg");
     
     createFBO();
     createProgram();
@@ -67,36 +88,109 @@ void AppManager::begin(){
 void AppManager::quit(){
     delete phong;
     delete model;
-    //delete vert;
-    //delete ind;
+    delete vert;
+    delete nor;
+    
+    for (size_t i = 0; i < 3; i++) {
+        for (size_t j = 0; j < 8; j++) {
+            delete distanceMap[i][j];
+        }
+    }
     
     glfwDestroyWindow(window);
     glfwTerminate();
 }
 
+void AppManager::buildDistanceMaps(int ref_point){
+    glm::vec3 point = glm::vec3(trans[ref_point]*glm::vec4(1.0f));
+    
+    const glm::mat4 proj        = glm::perspective(90.0f, 1.0f, 0.1f, 100.0f);
+    const glm::mat4 views[6]    = {
+        glm::lookAt(point, glm::vec3(1.0f,0.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f)),
+        glm::lookAt(point, glm::vec3(-1.0f,0.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f)),
+        glm::lookAt(point, glm::vec3(0.0f,-1.0f,0.0f), glm::vec3(0.0f,0.0f,1.0f)),
+        glm::lookAt(point, glm::vec3(0.0f,1.0f,0.0f), glm::vec3(0.0f,0.0f,-1.0f)),
+        glm::lookAt(point, glm::vec3(0.0f,0.0f,1.0f), glm::vec3(0.0f,1.0f,0.0f)),
+        glm::lookAt(point, glm::vec3(0.0f,0.0f,-1.0f), glm::vec3(0.0f,1.0f,0.0f))};
+    const GLenum faces[6] = {
+        GL_TEXTURE_CUBE_MAP_POSITIVE_X, GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+        GL_TEXTURE_CUBE_MAP_POSITIVE_Y, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
+        GL_TEXTURE_CUBE_MAP_POSITIVE_Z, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z};
+    
+    
+    for (size_t i = 0; i < 4; i++) {
+        CubeTextureFBO* fboA = distanceMap[ref_point][i];
+        //CubeTextureFBO* fboB = distanceMap[ref_point][(i+1)%2];
+        
+        fboA->bind();
+        
+        for (size_t j = 0; j < 6; j++) {
+            
+            fboA->setTarget(faces[j]);
+            glViewport(0, 0, fboA->getSize(), fboA->getSize());
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            
+            renderScene(views[j], proj, phong);
+            
+        }
+        fboA->unbind();
+    }
+}
+
+void AppManager::renderScene(glm::mat4 view_matrix, glm::mat4 proj_matrix, Program* shader){
+    
+    bg->use();
+    glBindVertexArray(vao[1]);
+    
+    glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(15.0f));
+    glm::mat4 model_view_matrix = view_matrix*model_matrix;
+    glm::mat3 normal_matrix = glm::mat3(glm::inverse(model_view_matrix));
+    
+    glUniformMatrix4fv(bg->getUniform("projection_matrix"), 1, 0, glm::value_ptr(camera.projection));
+    glUniformMatrix4fv(bg->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(model_view_matrix));
+    glUniformMatrix3fv(bg->getUniform("normal_matrix"), 1, 0, glm::value_ptr(normal_matrix));
+    glUniform3fv(bg->getUniform("light_pos"), 1, glm::value_ptr(light.position));
+    
+    cubemap->bindTexture();
+    
+   // glDrawArrays(GL_TRIANGLES, 0, 36);
+    bg->disuse();
+    
+    for (size_t i = 0; i < 3; i++) {
+        model_view_matrix = view_matrix*trans[i];
+        normal_matrix = glm::mat3(glm::inverse(model_view_matrix));
+        
+        shader->use();
+        glBindVertexArray(vao[0]);
+        
+        glBindTexture(GL_TEXTURE_CUBE_MAP, distanceMap[i][0]->getTexture());
+        //cubemap->bindTexture();
+        
+        glUniformMatrix4fv(shader->getUniform("projection_matrix"), 1, 0, glm::value_ptr(camera.projection));
+        glUniformMatrix4fv(shader->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(model_view_matrix));
+        glUniformMatrix3fv(shader->getUniform("normal_matrix"), 1, 0, glm::value_ptr(normal_matrix));
+        glUniform3fv(shader->getUniform("light_pos"), 1, glm::value_ptr(light.position));
+        
+        glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
+        
+        glBindVertexArray(0);
+        shader->disuse();
+
+    }
+}
 
 void AppManager::render(){
+    for (int i = 0; i < 3; i++) {
+        buildDistanceMaps(i);
+    }
+    
     glViewport(0, 0, window_width*2, window_height*2);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     //Create the new view matrix that takes the trackball view into account
 	glm::mat4 view_matrix_new = camera.view*trackball.getTransform();
-    glm::mat4 model_view_matrix = view_matrix_new*model->getTransform();
-    glm::mat3 normal_matrix = glm::mat3(glm::inverse(model_view_matrix));
     
-    phong->use();
-    glBindVertexArray(vao[0]);
-    
-    glUniformMatrix4fv(phong->getUniform("projection_matrix"), 1, 0, glm::value_ptr(camera.projection));
-    glUniformMatrix4fv(phong->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(model_view_matrix));
-    glUniformMatrix3fv(phong->getUniform("normal_matrix"), 1, 0, glm::value_ptr(normal_matrix));
-    glUniform3fv(phong->getUniform("light_pos"), 1, glm::value_ptr(light.position));
-    
-    glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
-    
-    glBindVertexArray(0);
-    phong->disuse();
-    
+    renderScene(view_matrix_new, camera.projection, test);
     CHECK_GL_ERRORS();
 }
 
@@ -141,7 +235,8 @@ void AppManager::createOpenGLContext(){
 void AppManager::setOpenGLStates(){
     glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	glEnable(GL_CULL_FACE);
+	//glDisable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
     
 	glClearColor(0.0, 0.5, 0.5, 1.0);
     
@@ -150,7 +245,9 @@ void AppManager::setOpenGLStates(){
 
 void AppManager::createProgram(){
     //Build programs
-    phong = new Program("trans.vert","phong.frag");
+    phong   = new Program("trans.vert", "phong.frag");
+    bg      = new Program("trans.vert", "cubemap.frag");
+    test    = new Program("trans.vert", "map_test.frag");
     
     //Set uniforms
     phong->use();
@@ -159,6 +256,14 @@ void AppManager::createProgram(){
     glUniform3fv(phong->getUniform("ambient"), 1, glm::value_ptr(glm::vec3(0.5f,0.0f,0.0f)));
     glUniform1f(phong->getUniform("shininess"), 120.0f);
     phong->disuse();
+    
+    bg->use();
+    glUniform1i(bg->getUniform("tex"), 0);
+    bg->disuse();
+    
+    test->use();
+    glUniform1i(test->getUniform("env_map"), 0);
+    test->disuse();
     
     CHECK_GL_ERRORS();
 }
@@ -174,30 +279,114 @@ void AppManager::createVAO(){
 	model->getVertices()->unbind(); //Unbinds both vertices and normals
 	glBindVertexArray(0);
     
-    /*glBindVertexArray(vao[1]);
-    GLfloat quad_vertices[] =  {
-        -1.0f, -1.0f,
-        1.0f, -1.0f,
-        1.0f,  1.0f,
-        -1.0f,  1.0f,
-    };
-    vert = new BO<GL_ARRAY_BUFFER>(quad_vertices, sizeof(quad_vertices));
+    glBindVertexArray(vao[1]);
+    const float cube_vertices_data[] = {
+        -0.5f, 0.5f, 0.5f,
+        0.5f, 0.5f, 0.5f,
+        -0.5f, -0.5f, 0.5f,
+        -0.5f, -0.5f, 0.5f,
+        0.5f, 0.5f, 0.5f,
+        0.5f, -0.5f, 0.5f,
     
-    GLubyte quad_indices[] = {
-        0, 1, 2, //triangle 1
-        2, 3, 0, //triangle 2
+        0.5f, 0.5f, 0.5f,
+        0.5f, 0.5f, -0.5f,
+        0.5f, -0.5f, 0.5f,
+        0.5f, -0.5f, 0.5f,
+        0.5f, 0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+     
+        0.5f, 0.5f, -0.5f,
+        -0.5f, 0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        -0.5f, 0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+     
+        -0.5f, 0.5f, -0.5f,
+        -0.5f, 0.5f, 0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, 0.5f, 0.5f,
+        -0.5f, -0.5f, 0.5f,
+     
+        -0.5f, 0.5f, 0.5f,
+        -0.5f, 0.5f, -0.5f,
+        0.5f, 0.5f, 0.5f,
+        0.5f, 0.5f, 0.5f,
+        -0.5f, 0.5f, -0.5f,
+        0.5f, 0.5f, -0.5f,
+     
+        0.5f, -0.5f, 0.5f,
+        0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, 0.5f,
+        -0.5f, -0.5f, 0.5f,
+        0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
     };
-    ind = new BO<GL_ELEMENT_ARRAY_BUFFER>(quad_indices, sizeof(quad_indices));
+    vert = new BO<GL_ARRAY_BUFFER>(&cube_vertices_data[0], sizeof(cube_vertices_data));
+    
+    const float cube_normals_data[] = {
+         0.0f, 0.0f, -1.0f,
+         0.0f, 0.0f, -1.0f,
+         0.0f, 0.0f, -1.0f,
+         0.0f, 0.0f, -1.0f,
+         0.0f, 0.0f, -1.0f,
+         0.0f, 0.0f, -1.0f,
+     
+         -1.0f, 0.0f, 0.0f,
+         -1.0f, 0.0f, 0.0f,
+         -1.0f, 0.0f, 0.0f,
+         -1.0f, 0.0f, 0.0f,
+         -1.0f, 0.0f, 0.0f,
+         -1.0f, 0.0f, 0.0f,
+     
+         0.0f, 0.0f, 1.0f,
+         0.0f, 0.0f, 1.0f,
+         0.0f, 0.0f, 1.0f,
+         0.0f, 0.0f, 1.0f,
+         0.0f, 0.0f, 1.0f,
+         0.0f, 0.0f, 1.0f,
+     
+         1.0f, 0.0f, 0.0f,
+         1.0f, 0.0f, 0.0f,
+         1.0f, 0.0f, 0.0f,
+         1.0f, 0.0f, 0.0f,
+         1.0f, 0.0f, 0.0f,
+         1.0f, 0.0f, 0.0f,
+     
+         0.0f, -1.0f, 0.0f,
+         0.0f, -1.0f, 0.0f,
+         0.0f, -1.0f, 0.0f,
+         0.0f, -1.0f, 0.0f,
+         0.0f, -1.0f, 0.0f,
+         0.0f, -1.0f, 0.0f,
+     
+         0.0f, 1.0f, 0.0f,
+         0.0f, 1.0f, 0.0f,
+         0.0f, 1.0f, 0.0f,
+         0.0f, 1.0f, 0.0f,
+         0.0f, 1.0f, 0.0f,
+         0.0f, 1.0f, 0.0f,
+    };
+    nor = new BO<GL_ARRAY_BUFFER>(&cube_normals_data[0], sizeof(cube_normals_data));
+ 
     vert->bind();
-    ->setAttributePointer("position", 2);
-    ind->bind();
+	phong->setAttributePointer("position", 3);
+	nor->bind();
+	phong->setAttributePointer("normal", 3);
+	model->getVertices()->unbind(); //Unbinds both vertices and normals
     
     glBindVertexArray(0);
-    */
+    
     CHECK_GL_ERRORS();
 }
 
 void AppManager::createFBO(){
+    for (size_t i = 0; i < 3; i++) {
+        for (size_t j = 0; j < 8; j++) {
+            distanceMap[i][j] = new CubeTextureFBO(512, GL_RGBA16F, 1);
+        }
+    }
     
     CHECK_GL_ERRORS();
 }

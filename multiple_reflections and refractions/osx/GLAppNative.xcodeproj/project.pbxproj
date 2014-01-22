@@ -13,8 +13,19 @@
 		82039AC2186F3C96000A0A55 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82039AC1186F3C96000A0A55 /* IOKit.framework */; };
 		82039AC4186F3C9E000A0A55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82039AC3186F3C9E000A0A55 /* Cocoa.framework */; };
 		82039AD8186F65E9000A0A55 /* TextureFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82039AD6186F65E9000A0A55 /* TextureFBO.cpp */; };
-		82039AD9186F6672000A0A55 /* kernel.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82039AD0186F65E0000A0A55 /* kernel.vert */; };
 		82039ADE186F6C07000A0A55 /* AppManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82039ADD186F6C07000A0A55 /* AppManager.cpp */; };
+		8291B298188D511A0078EFB2 /* CubeTextureFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8291B296188D511A0078EFB2 /* CubeTextureFBO.cpp */; };
+		8291B2A1188D77B80078EFB2 /* negx.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B29B188D779C0078EFB2 /* negx.jpg */; };
+		8291B2A2188D77B80078EFB2 /* negy.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B29C188D779C0078EFB2 /* negy.jpg */; };
+		8291B2A3188D77B80078EFB2 /* negz.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B29D188D779C0078EFB2 /* negz.jpg */; };
+		8291B2A4188D77B80078EFB2 /* posx.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B29E188D779C0078EFB2 /* posx.jpg */; };
+		8291B2A5188D77B80078EFB2 /* posy.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B29F188D779C0078EFB2 /* posy.jpg */; };
+		8291B2A6188D77B80078EFB2 /* posz.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B2A0188D779C0078EFB2 /* posz.jpg */; };
+		8291B2A9188D7FF10078EFB2 /* cubemap.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B2A7188D7F8E0078EFB2 /* cubemap.frag */; };
+		8291B2AB188D8BC40078EFB2 /* map_test.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B2AA188D8A950078EFB2 /* map_test.frag */; };
+		8291B2AF188D92B90078EFB2 /* sphere.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B2AC188D92B20078EFB2 /* sphere.bmp */; };
+		8291B2B0188D92B90078EFB2 /* sphere.mtl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B2AD188D92B20078EFB2 /* sphere.mtl */; };
+		8291B2B1188D92B90078EFB2 /* sphere.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8291B2AE188D92B20078EFB2 /* sphere.obj */; };
 		82D7940C18845DAC003AE2AE /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940518845DAC003AE2AE /* libglfw3.a */; };
 		82D7940D18845DAC003AE2AE /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940618845DAC003AE2AE /* libIL.a */; };
 		82D7940E18845DAC003AE2AE /* libILU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940718845DAC003AE2AE /* libILU.a */; };
@@ -40,10 +51,20 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				8291B2AF188D92B90078EFB2 /* sphere.bmp in CopyFiles */,
+				8291B2B0188D92B90078EFB2 /* sphere.mtl in CopyFiles */,
+				8291B2B1188D92B90078EFB2 /* sphere.obj in CopyFiles */,
+				8291B2AB188D8BC40078EFB2 /* map_test.frag in CopyFiles */,
+				8291B2A9188D7FF10078EFB2 /* cubemap.frag in CopyFiles */,
+				8291B2A1188D77B80078EFB2 /* negx.jpg in CopyFiles */,
+				8291B2A2188D77B80078EFB2 /* negy.jpg in CopyFiles */,
+				8291B2A3188D77B80078EFB2 /* negz.jpg in CopyFiles */,
+				8291B2A4188D77B80078EFB2 /* posx.jpg in CopyFiles */,
+				8291B2A5188D77B80078EFB2 /* posy.jpg in CopyFiles */,
+				8291B2A6188D77B80078EFB2 /* posz.jpg in CopyFiles */,
 				82D794271884757C003AE2AE /* bunny.obj in CopyFiles */,
 				82D7942318847546003AE2AE /* phong.frag in CopyFiles */,
 				82D7942418847546003AE2AE /* trans.vert in CopyFiles */,
-				82039AD9186F6672000A0A55 /* kernel.vert in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +81,25 @@
 		82039ACB186F6560000A0A55 /* GLException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLException.h; path = GLUtils/GLException.h; sourceTree = "<group>"; };
 		82039ACC186F6560000A0A55 /* GLUtils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLUtils.hpp; path = GLUtils/GLUtils.hpp; sourceTree = "<group>"; };
 		82039ACD186F6560000A0A55 /* Program.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Program.hpp; path = GLUtils/Program.hpp; sourceTree = "<group>"; };
-		82039AD0186F65E0000A0A55 /* kernel.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = kernel.vert; path = shaders/kernel.vert; sourceTree = "<group>"; };
 		82039AD6186F65E9000A0A55 /* TextureFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFBO.cpp; sourceTree = "<group>"; };
 		82039AD7186F65E9000A0A55 /* TextureFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFBO.h; sourceTree = "<group>"; };
 		82039ADC186F6B11000A0A55 /* AppManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
 		82039ADD186F6C07000A0A55 /* AppManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppManager.cpp; sourceTree = "<group>"; };
 		82039ADF186F7767000A0A55 /* Timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
+		8291B296188D511A0078EFB2 /* CubeTextureFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CubeTextureFBO.cpp; sourceTree = "<group>"; };
+		8291B297188D511A0078EFB2 /* CubeTextureFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTextureFBO.h; sourceTree = "<group>"; };
+		8291B299188D72760078EFB2 /* CubeMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CubeMap.hpp; path = GLUtils/CubeMap.hpp; sourceTree = "<group>"; };
+		8291B29B188D779C0078EFB2 /* negx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = negx.jpg; sourceTree = "<group>"; };
+		8291B29C188D779C0078EFB2 /* negy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = negy.jpg; sourceTree = "<group>"; };
+		8291B29D188D779C0078EFB2 /* negz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = negz.jpg; sourceTree = "<group>"; };
+		8291B29E188D779C0078EFB2 /* posx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = posx.jpg; sourceTree = "<group>"; };
+		8291B29F188D779C0078EFB2 /* posy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = posy.jpg; sourceTree = "<group>"; };
+		8291B2A0188D779C0078EFB2 /* posz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = posz.jpg; sourceTree = "<group>"; };
+		8291B2A7188D7F8E0078EFB2 /* cubemap.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = cubemap.frag; path = shaders/cubemap.frag; sourceTree = "<group>"; };
+		8291B2AA188D8A950078EFB2 /* map_test.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = map_test.frag; path = shaders/map_test.frag; sourceTree = "<group>"; };
+		8291B2AC188D92B20078EFB2 /* sphere.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = sphere.bmp; path = GLAppNative/models/sphere.bmp; sourceTree = "<group>"; };
+		8291B2AD188D92B20078EFB2 /* sphere.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sphere.mtl; path = GLAppNative/models/sphere.mtl; sourceTree = "<group>"; };
+		8291B2AE188D92B20078EFB2 /* sphere.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sphere.obj; path = GLAppNative/models/sphere.obj; sourceTree = "<group>"; };
 		82D7940518845DAC003AE2AE /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../../../../usr/local/lib/libglfw3.a; sourceTree = "<group>"; };
 		82D7940618845DAC003AE2AE /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIL.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libIL.a; sourceTree = "<group>"; };
 		82D7940718845DAC003AE2AE /* libILU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libILU.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libILU.a; sourceTree = "<group>"; };
@@ -132,6 +166,9 @@
 		820399AB186F1FBF000A0A55 /* GLAppNative */ = {
 			isa = PBXGroup;
 			children = (
+				8291B29A188D779C0078EFB2 /* textures */,
+				8291B296188D511A0078EFB2 /* CubeTextureFBO.cpp */,
+				8291B297188D511A0078EFB2 /* CubeTextureFBO.h */,
 				82D7941718845F63003AE2AE /* Model.cpp */,
 				82D7941818845F63003AE2AE /* Model.h */,
 				82D7941918845F63003AE2AE /* VirtualTrackball.cpp */,
@@ -174,6 +211,7 @@
 		82039AC9186F654C000A0A55 /* GLUtils */ = {
 			isa = PBXGroup;
 			children = (
+				8291B299188D72760078EFB2 /* CubeMap.hpp */,
 				82039ACA186F6560000A0A55 /* BO.hpp */,
 				82039ACB186F6560000A0A55 /* GLException.h */,
 				82039ACC186F6560000A0A55 /* GLUtils.hpp */,
@@ -187,14 +225,31 @@
 			children = (
 				82D79421188472F5003AE2AE /* phong.frag */,
 				82D79422188472F5003AE2AE /* trans.vert */,
-				82039AD0186F65E0000A0A55 /* kernel.vert */,
+				8291B2A7188D7F8E0078EFB2 /* cubemap.frag */,
+				8291B2AA188D8A950078EFB2 /* map_test.frag */,
 			);
 			name = shaders;
+			sourceTree = "<group>";
+		};
+		8291B29A188D779C0078EFB2 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				8291B29B188D779C0078EFB2 /* negx.jpg */,
+				8291B29C188D779C0078EFB2 /* negy.jpg */,
+				8291B29D188D779C0078EFB2 /* negz.jpg */,
+				8291B29E188D779C0078EFB2 /* posx.jpg */,
+				8291B29F188D779C0078EFB2 /* posy.jpg */,
+				8291B2A0188D779C0078EFB2 /* posz.jpg */,
+			);
+			path = textures;
 			sourceTree = "<group>";
 		};
 		82D794261884756A003AE2AE /* models */ = {
 			isa = PBXGroup;
 			children = (
+				8291B2AC188D92B20078EFB2 /* sphere.bmp */,
+				8291B2AD188D92B20078EFB2 /* sphere.mtl */,
+				8291B2AE188D92B20078EFB2 /* sphere.obj */,
 				82D7942518847565003AE2AE /* bunny.obj */,
 			);
 			name = models;
@@ -256,6 +311,7 @@
 				82039ADE186F6C07000A0A55 /* AppManager.cpp in Sources */,
 				82039AD8186F65E9000A0A55 /* TextureFBO.cpp in Sources */,
 				820399AD186F1FBF000A0A55 /* main.cpp in Sources */,
+				8291B298188D511A0078EFB2 /* CubeTextureFBO.cpp in Sources */,
 				82D7941B18845F63003AE2AE /* Model.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

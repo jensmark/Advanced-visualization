@@ -14,9 +14,11 @@
 #include "glm/glm.hpp"
 
 #include "Timer.hpp"
-#include "TextureFBO.h"
+#include "CubeTextureFBO.h"
 #include "VirtualTrackball.h"
 #include "Model.h"
+
+#include "GLUtils/CubeMap.hpp"
 
 using namespace GLUtils;
 
@@ -48,6 +50,16 @@ private:
 	 * Quit function
 	 */
 	void quit();
+    
+    /**
+     * Builds layered distance maps using depth peeling passes
+     */
+    void buildDistanceMaps(int ref_point);
+    
+    /**
+	 * Function that handles rendering the scene once
+	 */
+    void renderScene(glm::mat4 view_matrix, glm::mat4 proj_matrix, Program* shader);
     
 	/**
 	 * Function that handles rendering into the OpenGL context
@@ -114,9 +126,12 @@ private:
     Timer timer;
     static VirtualTrackball trackball;
     
-    // Screen quad
+    // cube
     BO<GL_ARRAY_BUFFER>* vert;
-    BO<GL_ELEMENT_ARRAY_BUFFER>* ind;
+    BO<GL_ARRAY_BUFFER>* nor;
+    
+    // background;
+    CubeMap* cubemap;
     
     // Model to render
     Model* model;
@@ -124,6 +139,14 @@ private:
     
     // Programs
     Program* phong;
+    Program* bg;
+    Program* test;
+    
+    // FBOs
+    CubeTextureFBO* distanceMap[3][8]; // 4 layers times 2 depth peeling passes
+    
+    // Model transformations
+    glm::mat4 trans[3];
     
     struct {
 		glm::vec3 position;
