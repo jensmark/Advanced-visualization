@@ -103,7 +103,7 @@ void AppManager::render(){
     //Create the new view matrix that takes the trackball view into account
 	glm::mat4 view_matrix_new = camera.view*trackball.getTransform();
     glm::mat4 model_view_matrix = view_matrix_new*model->getTransform();
-    glm::mat3 normal_matrix = glm::mat3(glm::inverse(model_view_matrix));
+    glm::mat3 normal_matrix = glm::mat3(glm::inverse(glm::transpose(model_view_matrix)));
     
     glClearColor(1.0, 1.0, 1.0, 1.0);
     renderModel(prepass_buffer, prepass, camera.projection, model_view_matrix, normal_matrix);

@@ -44,21 +44,20 @@ void AppManager::init(){
     srand((unsigned)time(0));
    
     for (size_t i = 0; i < 3; i++) {
-        float tx = (rand() / (float) RAND_MAX - 0.5f) * 4.0f;
-		float ty = (rand() / (float) RAND_MAX - 0.5f) * 4.0f;
-		float tz = (rand() / (float) RAND_MAX - 0.5f) * 4.0f;
+        float tx = (rand() / (float) RAND_MAX - 0.5f) * 8.0f;
+		float ty = (rand() / (float) RAND_MAX - 0.5f) * 8.0f;
+		float tz = (rand() / (float) RAND_MAX - 0.5f) * 8.0f;
         
         std::cout << tx << " " << ty << " " << tz << std::endl;
         
-        trans[i] = glm::scale(model->getTransform(), glm::vec3(0.8f));
-        trans[i] = glm::translate(trans[i], glm::vec3(tx,ty,tz));
+        trans[i] = glm::translate(model->getTransform(), glm::vec3(tx,ty,tz));
     }
     
     camera.projection = glm::perspective(45.0f,
                     window_width / (float) window_height, 1.0f, 50.0f);
-	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
+	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -6.0f));
     
-    light.position = glm::vec3(0.0f,0.0f,10.0f);
+    light.position = glm::vec3(0.0f,0.0f,-10.0f);
     //light.view = glm::lookAt(light.position, glm::vec3(0.0f), glm::vec3(0.0f,1.0f,0.0f));
     //light.projection = glm::perspective(45.0f, 1.0f, 1.0f, 50.0f);
     
@@ -108,8 +107,8 @@ void AppManager::buildDistanceMaps(int ref_point){
     const glm::mat4 views[6]    = {
         glm::lookAt(point, glm::vec3(1.0f,0.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f)),
         glm::lookAt(point, glm::vec3(-1.0f,0.0f,0.0f), glm::vec3(0.0f,1.0f,0.0f)),
-        glm::lookAt(point, glm::vec3(0.0f,-1.0f,0.0f), glm::vec3(0.0f,0.0f,1.0f)),
         glm::lookAt(point, glm::vec3(0.0f,1.0f,0.0f), glm::vec3(0.0f,0.0f,-1.0f)),
+        glm::lookAt(point, glm::vec3(0.0f,-1.0f,0.0f), glm::vec3(0.0f,0.0f,1.0f)),
         glm::lookAt(point, glm::vec3(0.0f,0.0f,1.0f), glm::vec3(0.0f,1.0f,0.0f)),
         glm::lookAt(point, glm::vec3(0.0f,0.0f,-1.0f), glm::vec3(0.0f,1.0f,0.0f))};
     const GLenum faces[6] = {
@@ -144,7 +143,7 @@ void AppManager::renderScene(glm::mat4 view_matrix, glm::mat4 proj_matrix, Progr
     
     glm::mat4 model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(15.0f));
     glm::mat4 model_view_matrix = view_matrix*model_matrix;
-    glm::mat3 normal_matrix = glm::mat3(glm::inverse(model_view_matrix));
+    glm::mat3 normal_matrix = glm::mat3(glm::inverse(glm::transpose(model_view_matrix)));
     
     glUniformMatrix4fv(bg->getUniform("projection_matrix"), 1, 0, glm::value_ptr(camera.projection));
     glUniformMatrix4fv(bg->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(model_view_matrix));
@@ -153,14 +152,19 @@ void AppManager::renderScene(glm::mat4 view_matrix, glm::mat4 proj_matrix, Progr
     
     cubemap->bindTexture();
     
-   // glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
     bg->disuse();
+    
+    //int tst = 0;
     
     for (size_t i = 0; i < 3; i++) {
         model_view_matrix = view_matrix*trans[i];
-        normal_matrix = glm::mat3(glm::inverse(model_view_matrix));
-        
-        shader->use();
+        normal_matrix = glm::mat3(glm::inverse(glm::transpose(model_view_matrix)));
+        //if (i == tst){
+            shader->use();
+        //} else {
+        //    phong->use();
+        //}
         glBindVertexArray(vao[0]);
         
         glBindTexture(GL_TEXTURE_CUBE_MAP, distanceMap[i][0]->getTexture());
@@ -190,7 +194,7 @@ void AppManager::render(){
     //Create the new view matrix that takes the trackball view into account
 	glm::mat4 view_matrix_new = camera.view*trackball.getTransform();
     
-    renderScene(view_matrix_new, camera.projection, test);
+    renderScene(view_matrix_new, camera.projection, phong);
     CHECK_GL_ERRORS();
 }
 

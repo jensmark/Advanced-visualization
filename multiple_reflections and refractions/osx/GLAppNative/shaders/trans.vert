@@ -17,7 +17,7 @@ void main() {
 	vec4 pos = modelview_matrix * vec4(position, 1.0);
     
 	v = normalize(-pos.xyz);
-	l = normalize(light_pos - pos.xyz);
+	l = normalize(pos.xyz-light_pos);
 	n = normal_matrix*normal;
     uv = vec4(position, 1.0);
     

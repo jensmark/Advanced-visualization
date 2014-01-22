@@ -87,7 +87,7 @@ void AppManager::render(){
     //Create the new view matrix that takes the trackball view into account
 	glm::mat4 view_matrix_new = camera.view*trackball.getTransform();
     glm::mat4 model_view_matrix = view_matrix_new*model->getTransform();
-    glm::mat3 normal_matrix = glm::mat3(glm::inverse(model_view_matrix));
+    glm::mat3 normal_matrix = glm::mat3(glm::inverse(glm::transpose(model_view_matrix)));
     glm::mat4 view_proj_inv = glm::inverse(view_matrix_new*camera.projection);
     
     phong->use();
