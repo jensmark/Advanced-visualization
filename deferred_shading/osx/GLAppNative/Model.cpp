@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Model::Model(std::string filename, bool invert) {
-	std::vector<float> vertex_data, normal_data, color_data;
+	std::vector<float> vertex_data, normal_data, color_data, uv_data;
 	aiMatrix4x4 trafo;
 	aiIdentityMatrix4(&trafo);
 	unsigned int load_flags = aiProcessPreset_TargetRealtime_Quality;;
@@ -22,7 +22,7 @@ Model::Model(std::string filename, bool invert) {
 	min_dim = glm::vec3(std::numeric_limits<float>::max());
 	max_dim = -glm::vec3(std::numeric_limits<float>::max());
 	//std::cout << min_dim.x << ", " << min_dim.y << ", " << min_dim.z << " - "  << max_dim.x << ", " << max_dim.y << ", " << max_dim.z << std::endl;
-	loadRecursive(invert, vertex_data, normal_data, color_data, scene, scene->mRootNode, trafo);
+	loadRecursive(invert, vertex_data, normal_data, color_data, uv_data, scene, scene->mRootNode, trafo);
 	
 	n_vertices = (unsigned int)vertex_data.size()/3;
 	
@@ -60,6 +60,9 @@ Model::Model(std::string filename, bool invert) {
 		normals.reset(new GLUtils::BO<GL_ARRAY_BUFFER>(normal_data.data(), (unsigned int)normal_data.size()*sizeof(float)));
 	if (color_data.size() == 4*n_vertices) 
 		colors.reset(new GLUtils::BO<GL_ARRAY_BUFFER>(color_data.data(), (unsigned int)color_data.size()*sizeof(float)));
+    if(uv_data.size() == 2*n_vertices){
+        uv.reset(new GLUtils::BO<GL_ARRAY_BUFFER>(uv_data.data(), (unsigned int) uv_data.size()*sizeof(float)));
+    }
 }
 
 Model::~Model() {
@@ -68,7 +71,7 @@ Model::~Model() {
 
 void Model::loadRecursive(bool invert,
 			std::vector<float>& vertex_data, std::vector<float>& normal_data, 
-			std::vector<float>& color_data, 
+			std::vector<float>& color_data, std::vector<float>& uv_data,
 			const aiScene* scene, const aiNode* node, aiMatrix4x4 modelview_matrix) {
 	//update transform matrix. notice that we also transpose it
 	aiMultiplyMatrix4(&modelview_matrix, &node->mTransformation);
@@ -129,11 +132,16 @@ void Model::loadRecursive(bool invert,
 					color_data.push_back(mesh->mColors[0][index].b);
 					color_data.push_back(mesh->mColors[0][index].a);
 				}
+                
+                if(mesh->HasTextureCoords(0)){
+                    uv_data.push_back(mesh->mTextureCoords[0][index].x);
+                    uv_data.push_back(mesh->mTextureCoords[0][index].y);
+                }
 			}
 		}
 	}
 
 	// load all children
 	for (unsigned int n = 0; n < node->mNumChildren; ++n)
-		loadRecursive(invert, vertex_data, normal_data, color_data, scene, node->mChildren[n], modelview_matrix);
+		loadRecursive(invert, vertex_data, normal_data, color_data, uv_data, scene, node->mChildren[n], modelview_matrix);
 }

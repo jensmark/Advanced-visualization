@@ -16,6 +16,10 @@
 		82039AD9186F6672000A0A55 /* kernel.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82039AD0186F65E0000A0A55 /* kernel.vert */; };
 		82039ADE186F6C07000A0A55 /* AppManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82039ADD186F6C07000A0A55 /* AppManager.cpp */; };
 		823432271896D6FD0004FC1A /* deferred.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 823432261896D13E0004FC1A /* deferred.frag */; };
+		8234322B1896EDD00004FC1A /* sphere.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 823432281896EDC40004FC1A /* sphere.bmp */; };
+		8234322C1896EDD00004FC1A /* sphere.mtl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 823432291896EDC40004FC1A /* sphere.mtl */; };
+		8234322D1896EDD00004FC1A /* sphere.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8234322A1896EDC40004FC1A /* sphere.obj */; };
+		8234322F18970D070004FC1A /* trans_basic.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8234322E189709750004FC1A /* trans_basic.vert */; };
 		82D7940C18845DAC003AE2AE /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940518845DAC003AE2AE /* libglfw3.a */; };
 		82D7940D18845DAC003AE2AE /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940618845DAC003AE2AE /* libIL.a */; };
 		82D7940E18845DAC003AE2AE /* libILU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7940718845DAC003AE2AE /* libILU.a */; };
@@ -41,6 +45,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				8234322F18970D070004FC1A /* trans_basic.vert in CopyFiles */,
+				8234322B1896EDD00004FC1A /* sphere.bmp in CopyFiles */,
+				8234322C1896EDD00004FC1A /* sphere.mtl in CopyFiles */,
+				8234322D1896EDD00004FC1A /* sphere.obj in CopyFiles */,
 				823432271896D6FD0004FC1A /* deferred.frag in CopyFiles */,
 				82D794271884757C003AE2AE /* bunny.obj in CopyFiles */,
 				82D7942318847546003AE2AE /* phong.frag in CopyFiles */,
@@ -69,6 +77,10 @@
 		82039ADD186F6C07000A0A55 /* AppManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppManager.cpp; sourceTree = "<group>"; };
 		82039ADF186F7767000A0A55 /* Timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
 		823432261896D13E0004FC1A /* deferred.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = deferred.frag; path = shaders/deferred.frag; sourceTree = "<group>"; };
+		823432281896EDC40004FC1A /* sphere.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = sphere.bmp; path = GLAppNative/models/sphere.bmp; sourceTree = "<group>"; };
+		823432291896EDC40004FC1A /* sphere.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; name = sphere.mtl; path = GLAppNative/models/sphere.mtl; sourceTree = "<group>"; };
+		8234322A1896EDC40004FC1A /* sphere.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = sphere.obj; path = GLAppNative/models/sphere.obj; sourceTree = "<group>"; };
+		8234322E189709750004FC1A /* trans_basic.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = trans_basic.vert; path = shaders/trans_basic.vert; sourceTree = "<group>"; };
 		82D7940518845DAC003AE2AE /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../../../../usr/local/lib/libglfw3.a; sourceTree = "<group>"; };
 		82D7940618845DAC003AE2AE /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIL.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libIL.a; sourceTree = "<group>"; };
 		82D7940718845DAC003AE2AE /* libILU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libILU.a; path = ../../../../../../../usr/local/Cellar/devil/1.7.8/lib/libILU.a; sourceTree = "<group>"; };
@@ -192,6 +204,7 @@
 				82D79422188472F5003AE2AE /* trans.vert */,
 				82039AD0186F65E0000A0A55 /* kernel.vert */,
 				823432261896D13E0004FC1A /* deferred.frag */,
+				8234322E189709750004FC1A /* trans_basic.vert */,
 			);
 			name = shaders;
 			sourceTree = "<group>";
@@ -199,6 +212,9 @@
 		82D794261884756A003AE2AE /* models */ = {
 			isa = PBXGroup;
 			children = (
+				823432281896EDC40004FC1A /* sphere.bmp */,
+				823432291896EDC40004FC1A /* sphere.mtl */,
+				8234322A1896EDC40004FC1A /* sphere.obj */,
 				82D7942518847565003AE2AE /* bunny.obj */,
 			);
 			name = models;

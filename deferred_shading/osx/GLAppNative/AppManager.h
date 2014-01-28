@@ -125,10 +125,12 @@ private:
     
     // Model to render
     Model* model;
-    GLuint vao[2];
+    Model* sphere;
+    GLuint vao[3];
     
     // Programs
     Program* phong;
+    Program* phong1;
     Program* deferred;
     
     // FBOs
@@ -136,9 +138,9 @@ private:
 
     struct {
 		glm::vec3 position;
-		glm::mat4 projection;
-		glm::mat4 view;
-	} light;
+        glm::vec3 diffuse;
+        glm::vec3 specular;
+	} light[4];
     
 	struct {
 		glm::mat4 projection;

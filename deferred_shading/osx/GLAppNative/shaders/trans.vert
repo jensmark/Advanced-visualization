@@ -16,7 +16,7 @@ smooth out vec4 c;
 void main() {
 	vec4 pos = modelview_matrix * vec4(position, 1.0);
     
-	v = normalize(-pos.xyz);
+	v = pos.xyz;
 	n = normal_matrix*normal;
     c = color;
     

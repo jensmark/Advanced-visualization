@@ -34,14 +34,24 @@ void AppManager::init(){
     
     trackball.setWindowSize(window_width, window_height);
     model = new Model("bunny.obj", false);
+    sphere = new Model("sphere.obj", false);
     
     camera.projection = glm::perspective(45.0f,
                     window_width / (float) window_height, 1.0f, 50.0f);
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
     
-    light.position = glm::vec3(0.0f,0.0f,-5.0f);
-    //light.view = glm::lookAt(light.position, glm::vec3(0.0f), glm::vec3(0.0f,1.0f,0.0f));
-    //light.projection = glm::perspective(45.0f, 1.0f, 1.0f, 50.0f);
+    // lights
+    light[0].position = glm::vec3(0.0f,0.5f,0.0f);
+    light[0].diffuse = glm::vec3(0.0f,1.0f,0.0f);
+    light[0].specular = glm::vec3(1.0f,1.0f,1.0f);
+    
+    light[1].position = glm::vec3(0.5f,0.0f,0.0f);
+    light[1].diffuse = glm::vec3(0.0f,0.0f,1.0f);
+    light[1].specular = glm::vec3(1.0f,1.0f,1.0f);
+    
+    light[2].position = glm::vec3(0.0f,0.0f,0.5f);
+    light[2].diffuse = glm::vec3(1.0f,0.0f,0.0f);
+    light[2].specular = glm::vec3(1.0f,1.0f,1.0f);
     
     createFBO();
     createProgram();
@@ -77,7 +87,7 @@ void AppManager::quit(){
 
 void AppManager::renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor){
     target->bind();
-    glViewport(0, 0, window_width, window_height);
+    glViewport(0, 0, target->getWidth(), target->getHeight());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     shader->use();
@@ -86,7 +96,7 @@ void AppManager::renderModel(TextureFBO* target, Program* shader, glm::mat4& pro
     glUniformMatrix4fv(shader->getUniform("projection_matrix"), 1, 0, glm::value_ptr(proj));
     glUniformMatrix4fv(shader->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(mw));
     glUniformMatrix3fv(shader->getUniform("normal_matrix"), 1, 0, glm::value_ptr(nor));
-    glUniform4fv(shader->getUniform("color"), 1, glm::value_ptr(glm::vec4(1.0f,0.0f,0.0f,1.0f)));
+    glUniform4fv(shader->getUniform("color"), 1, glm::value_ptr(glm::vec4(1.0f,1.0f,1.0f,1.0f)));
     
     glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
     
@@ -105,10 +115,18 @@ void AppManager::render(){
     renderModel(gBuffer, deferred, camera.projection, model_view_matrix, normal_matrix);
     
     glViewport(0, 0, window_width*2, window_height*2);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
     
-    phong->use();
-    glBindVertexArray(vao[1]);
+    glEnable (GL_BLEND);
+    glBlendEquation (GL_FUNC_ADD);
+    glBlendFunc (GL_ONE, GL_ONE);
+    
+    glDisable(GL_CULL_FACE);
+    glDisable (GL_DEPTH_TEST);
+    glDepthMask (GL_FALSE);
+    
+    phong1->use();
+    glBindVertexArray(vao[2]);
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gBuffer->getTexture(0));
@@ -119,10 +137,26 @@ void AppManager::render(){
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, gBuffer->getTexture(2));
     
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, BUFFER_OFFSET(0));
+    for (size_t i = 0; i < 3; i++) {
+        glm::mat4 model = glm::translate(sphere->getTransform(), light[i].position);
+        glUniformMatrix4fv(phong1->getUniform("projection_matrix"), 1, 0, glm::value_ptr(camera.projection));
+        glUniformMatrix4fv(phong1->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(view_matrix_new*model));
+        glUniformMatrix4fv(phong1->getUniform("view_matrix"), 1, 0, glm::value_ptr(view_matrix_new));
+        glUniform3fv(phong1->getUniform("light_pos"), 1, glm::value_ptr(light[i].position));
+        
+        glUniform3fv(phong1->getUniform("diffuse"), 1, glm::value_ptr(light[i].diffuse));
+        glUniform3fv(phong1->getUniform("specular"), 1, glm::value_ptr(light[i].specular));
+        
+        glDrawArrays(GL_TRIANGLES, 0, sphere->getNVertices());
+    }
     
     glBindVertexArray(0);
-    phong->disuse();
+    phong1->disuse();
+    
+    glEnable(GL_CULL_FACE);
+    glEnable (GL_DEPTH_TEST);
+    glDepthMask (GL_TRUE);
+    glDisable (GL_BLEND);
     
     CHECK_GL_ERRORS();
 }
@@ -170,7 +204,7 @@ void AppManager::setOpenGLStates(){
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_CULL_FACE);
     
-	glClearColor(0.0, 0.5, 0.5, 1.0);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
     
     CHECK_GL_ERRORS();
 }
@@ -178,13 +212,13 @@ void AppManager::setOpenGLStates(){
 void AppManager::createProgram(){
     //Build programs
     phong = new Program("kernel.vert","phong.frag");
+    phong1 = new Program("trans_basic.vert", "phong.frag");
     deferred = new Program("trans.vert","deferred.frag");
     
     //Set uniforms
     phong->use();
     glUniform3fv(phong->getUniform("diffuse"), 1, glm::value_ptr(glm::vec3(0.8f,0.0f,0.0f)));
     glUniform3fv(phong->getUniform("specular"), 1, glm::value_ptr(glm::vec3(1.0f,1.0f,1.0f)));
-    glUniform3fv(phong->getUniform("ambient"), 1, glm::value_ptr(glm::vec3(0.5f,0.0f,0.0f)));
     glUniform1f(phong->getUniform("shininess"), 120.0f);
     
     glUniform1i(phong->getUniform("color"),0);
@@ -193,19 +227,23 @@ void AppManager::createProgram(){
     //glUniform1i(phong->getUniform("depth"),3);
     phong->disuse();
     
-    /*
-    deferred->use();
-    deferred->bindFragDataLocation(0, "out_color0");
-    deferred->bindFragDataLocation(1, "out_color1");
-    deferred->bindFragDataLocation(2, "out_color2");
-    deferred->disuse();
-    */
+    phong1->use();
+    glUniform3fv(phong1->getUniform("diffuse"), 1, glm::value_ptr(glm::vec3(0.0f,1.0f,0.0f)));
+    glUniform3fv(phong1->getUniform("specular"), 1, glm::value_ptr(glm::vec3(1.0f,1.0f,1.0f)));
+    glUniform1f(phong1->getUniform("shininess"), 120.0f);
+    
+    glUniform1i(phong1->getUniform("color"),0);
+    glUniform1i(phong1->getUniform("normal"),1);
+    glUniform1i(phong1->getUniform("view"),2);
+    //glUniform1i(phong1->getUniform("depth"),3);
+    phong1->disuse();
+
      
     CHECK_GL_ERRORS();
 }
 
 void AppManager::createVAO(){
-    glGenVertexArrays(2, &vao[0]);
+    glGenVertexArrays(3, &vao[0]);
     
 	glBindVertexArray(vao[0]);
 	model->getVertices()->bind();
@@ -234,6 +272,12 @@ void AppManager::createVAO(){
     ind->bind();
     
     glBindVertexArray(0);
+    
+    glBindVertexArray(vao[2]);
+	sphere->getVertices()->bind();
+	phong1->setAttributePointer("position", 3);
+	sphere->getVertices()->unbind(); //Unbinds both vertices and normals
+	glBindVertexArray(0);
     
     CHECK_GL_ERRORS();
 }
