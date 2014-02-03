@@ -37,7 +37,6 @@
 		82D7941618845E3B003AE2AE /* libGLEWmx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941418845E3B003AE2AE /* libGLEWmx.a */; };
 		82D7941B18845F63003AE2AE /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82D7941718845F63003AE2AE /* Model.cpp */; };
 		82D7941C18845F63003AE2AE /* VirtualTrackball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82D7941918845F63003AE2AE /* VirtualTrackball.cpp */; };
-		82D7941F188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941D188461B8003AE2AE /* libassimp.3.0.255.dylib */; };
 		82D79420188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D7941E188461B8003AE2AE /* libassimp.3.0.255.dylib */; };
 		82D7942318847546003AE2AE /* phong.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D79421188472F5003AE2AE /* phong.frag */; };
 		82D7942418847546003AE2AE /* trans.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D79422188472F5003AE2AE /* trans.vert */; };
@@ -125,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82D7941F188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */,
+				82D79420188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */,
 				82D79420188461B8003AE2AE /* libassimp.3.0.255.dylib in Frameworks */,
 				82D7941518845E3B003AE2AE /* libGLEW.a in Frameworks */,
 				82D7941618845E3B003AE2AE /* libGLEWmx.a in Frameworks */,
