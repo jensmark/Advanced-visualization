@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>827EDD1D-5722-417F-9481-145602C306BE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GLAppNative</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9E2B7139-F368-4840-9C0D-6127AAF1A52C</key>
+		<string>https://github.com/jkrmc12/Advanced-visualization.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>volumetric_light_scattering/osx/GLAppNative.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9E2B7139-F368-4840-9C0D-6127AAF1A52C</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jkrmc12/Advanced-visualization.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9E2B7139-F368-4840-9C0D-6127AAF1A52C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9E2B7139-F368-4840-9C0D-6127AAF1A52C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Advanced-visualization</string>
+		</dict>
+	</array>
+</dict>
+</plist>
