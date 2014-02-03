@@ -52,7 +52,7 @@ private:
     /**
 	 * Function that handles rendering into the OpenGL context
 	 */
-    void renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor);
+    void renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor, glm::vec3 light);
     
 	/**
 	 * Function that handles rendering into the OpenGL context

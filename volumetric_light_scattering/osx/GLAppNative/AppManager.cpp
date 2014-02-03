@@ -39,7 +39,7 @@ void AppManager::init(){
                     window_width / (float) window_height, 1.0f, 50.0f);
 	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
     
-    light.position = glm::vec3(0.0f,0.0f,-5.0f);
+    light.position = glm::vec3(0.0f,0.0f,-10.0f);
     //light.view = glm::lookAt(light.position, glm::vec3(0.0f), glm::vec3(0.0f,1.0f,0.0f));
     //light.projection = glm::perspective(45.0f, 1.0f, 1.0f, 50.0f);
     
@@ -78,7 +78,7 @@ void AppManager::quit(){
     glfwTerminate();
 }
 
-void AppManager::renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor){
+void AppManager::renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor, glm::vec3 light){
     target->bind();
     glViewport(0, 0, window_width, window_height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -89,7 +89,7 @@ void AppManager::renderModel(TextureFBO* target, Program* shader, glm::mat4& pro
     glUniformMatrix4fv(shader->getUniform("projection_matrix"), 1, 0, glm::value_ptr(proj));
     glUniformMatrix4fv(shader->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(mw));
     glUniformMatrix3fv(shader->getUniform("normal_matrix"), 1, 0, glm::value_ptr(nor));
-    glUniform3fv(shader->getUniform("light_pos"), 1, glm::value_ptr(light.position));
+    glUniform3fv(shader->getUniform("light_pos"), 1, glm::value_ptr(light));
     
     glDrawArrays(GL_TRIANGLES, 0, model->getNVertices());
     
@@ -105,10 +105,13 @@ void AppManager::render(){
     glm::mat4 model_view_matrix = view_matrix_new*model->getTransform();
     glm::mat3 normal_matrix = glm::mat3(glm::inverse(glm::transpose(model_view_matrix)));
     
+    glm::vec3 l = light.position;
+    l.x = ((glm::sin(timer.elapsed())-1.0f)+1.0f)*5.0f;
+    
     glClearColor(1.0, 1.0, 1.0, 1.0);
-    renderModel(prepass_buffer, prepass, camera.projection, model_view_matrix, normal_matrix);
+    renderModel(prepass_buffer, prepass, camera.projection, model_view_matrix, normal_matrix, l);
     glClearColor(0.0, 0.5, 0.5, 1.0);
-    renderModel(buffer, phong, camera.projection, model_view_matrix, normal_matrix);
+    renderModel(buffer, phong, camera.projection, model_view_matrix, normal_matrix, l);
     
     glViewport(0, 0, window_width*2, window_height*2);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -116,9 +119,7 @@ void AppManager::render(){
     scatter->use();
     glBindVertexArray(vao[1]);
     
-    light.position.x = glm::sin(timer.elapsed());
-    
-    glm::vec3 screen_light_pos = glm::project(light.position, view_matrix_new, camera.projection, glm::vec4(0.0f,0.0f, (float)window_width*2, (float)window_height*2));
+    glm::vec3 screen_light_pos = glm::project(l, view_matrix_new, camera.projection, glm::vec4(0.0f,0.0f, (float)window_width*2, (float)window_height*2));
     screen_light_pos.x -= (float)(window_width*2) * 0.5f;
     screen_light_pos.y -= (float)(window_height*2) * 0.5f;
     screen_light_pos = glm::normalize(screen_light_pos);
@@ -204,11 +205,11 @@ void AppManager::createProgram(){
     scatter->use();
     glUniform1i(scatter->getUniform("prepass"), 0);
     glUniform1i(scatter->getUniform("frame"), 1);
-    glUniform1i(scatter->getUniform("n_samples"), 25);
-    glUniform1f(scatter->getUniform("density"), 0.1f);
-    glUniform1f(scatter->getUniform("weight"), 1.0f);
+    glUniform1i(scatter->getUniform("n_samples"), 32);
+    glUniform1f(scatter->getUniform("density"), 0.3f);
+    glUniform1f(scatter->getUniform("weight"), 0.5f);
     glUniform1f(scatter->getUniform("decay"), 0.8f);
-    glUniform1f(scatter->getUniform("exposure"), 0.7f);
+    glUniform1f(scatter->getUniform("exposure"), 0.5f);
     scatter->disuse();
     
     CHECK_GL_ERRORS();
