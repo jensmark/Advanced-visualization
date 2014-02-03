@@ -32,7 +32,7 @@ void main() {
     vec4 spec = pow(max(0.0f, dot(n, h)), shininess) * vec4(specular, 1.0);
 
     float dist_2d = distance (light_pos, v);
-    float atten_factor = -log (min (1.0, dist_2d / 2.0));
+    float atten_factor = -log (min (1.0, dist_2d / 2.5));
     
     out_color = ((diff + spec) * atten_factor);
 }
