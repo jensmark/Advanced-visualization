@@ -36,22 +36,32 @@ void AppManager::init(){
     model = new Model("bunny.obj", false);
     sphere = new Model("sphere.obj", false);
     
+    srand((unsigned)time(0));
+
+    for (size_t i = 0; i < n_models; i++) {
+        float tx = rand() / (float) RAND_MAX - 0.5f;
+		float ty = rand() / (float) RAND_MAX - 0.5f;
+		float tz = rand() / (float) RAND_MAX - 0.5f;
+        
+        std::cout << tx << " " << ty << " " << tz << std::endl;
+        
+        glm::mat4 transformation = model->getTransform();
+		trans[i] = glm::translate(transformation, glm::vec3(tx, ty, tz));
+    }
+    
     camera.projection = glm::perspective(45.0f,
                     window_width / (float) window_height, 1.0f, 50.0f);
-	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
+	camera.view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
     
-    // lights
-    light[0].position = glm::vec3(0.0f,0.5f,0.0f);
-    light[0].diffuse = glm::vec3(0.0f,1.0f,0.0f);
-    light[0].specular = glm::vec3(1.0f,1.0f,1.0f);
-    
-    light[1].position = glm::vec3(0.5f,0.0f,0.0f);
-    light[1].diffuse = glm::vec3(0.0f,0.0f,1.0f);
-    light[1].specular = glm::vec3(1.0f,1.0f,1.0f);
-    
-    light[2].position = glm::vec3(0.0f,0.0f,0.5f);
-    light[2].diffuse = glm::vec3(1.0f,0.0f,0.0f);
-    light[2].specular = glm::vec3(1.0f,1.0f,1.0f);
+    for (size_t i = 0; i < n_lights; i++) {
+        float tx = rand() / (float) RAND_MAX - 0.5f;
+		float ty = rand() / (float) RAND_MAX - 0.5f;
+		float tz = rand() / (float) RAND_MAX - 0.5f;
+
+        light[i].position = glm::vec3(tx*10.0f,ty*10.0f,tz*10.0f);
+        light[i].diffuse = glm::abs(glm::vec3(tx,ty,tz));
+        light[i].specular = glm::vec3(1.0f,1.0f,1.0f);
+    }
     
     createFBO();
     createProgram();
@@ -85,10 +95,7 @@ void AppManager::quit(){
     glfwTerminate();
 }
 
-void AppManager::renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor){
-    target->bind();
-    glViewport(0, 0, target->getWidth(), target->getHeight());
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void AppManager::renderModel(Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor){
     
     shader->use();
     glBindVertexArray(vao[0]);
@@ -103,16 +110,22 @@ void AppManager::renderModel(TextureFBO* target, Program* shader, glm::mat4& pro
     glBindVertexArray(0);
     shader->disuse();
     
-    target->unbind();
 }
 
 void AppManager::render(){
     //Create the new view matrix that takes the trackball view into account
 	glm::mat4 view_matrix_new = camera.view*trackball.getTransform();
-    glm::mat4 model_view_matrix = view_matrix_new*model->getTransform();
-    glm::mat3 normal_matrix = glm::mat3(glm::inverse(glm::transpose(model_view_matrix)));
     
-    renderModel(gBuffer, deferred, camera.projection, model_view_matrix, normal_matrix);
+    gBuffer->bind();
+    glViewport(0, 0, gBuffer->getWidth(), gBuffer->getHeight());
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    for (size_t i = 0; i < n_models; i++) {
+        glm::mat4 model_view_matrix = view_matrix_new*trans[i];
+        
+        glm::mat3 normal_matrix = glm::mat3(glm::inverse(glm::transpose(model_view_matrix)));
+        renderModel(deferred, camera.projection, model_view_matrix, normal_matrix);
+    }
+    gBuffer->unbind();
     
     glViewport(0, 0, window_width*2, window_height*2);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -127,6 +140,7 @@ void AppManager::render(){
     
     phong1->use();
     glBindVertexArray(vao[2]);
+    //glBindVertexArray(vao[1]);
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gBuffer->getTexture(0));
@@ -137,7 +151,8 @@ void AppManager::render(){
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, gBuffer->getTexture(2));
     
-    for (size_t i = 0; i < 3; i++) {
+    
+    for (size_t i = 0; i < n_lights; i++) {
         glm::mat4 model = glm::translate(sphere->getTransform(), light[i].position);
         glUniformMatrix4fv(phong1->getUniform("projection_matrix"), 1, 0, glm::value_ptr(camera.projection));
         glUniformMatrix4fv(phong1->getUniform("modelview_matrix"), 1, 0, glm::value_ptr(view_matrix_new*model));
@@ -147,7 +162,8 @@ void AppManager::render(){
         glUniform3fv(phong1->getUniform("diffuse"), 1, glm::value_ptr(light[i].diffuse));
         glUniform3fv(phong1->getUniform("specular"), 1, glm::value_ptr(light[i].specular));
         
-        glDrawArrays(GL_TRIANGLES, 0, sphere->getNVertices());
+        //glDrawArrays(GL_TRIANGLES, 0, sphere->getNVertices());
+        glDrawElements(GL_TRIANGLES, indices, GL_UNSIGNED_INT, NULL);
     }
     
     glBindVertexArray(0);
@@ -273,10 +289,60 @@ void AppManager::createVAO(){
     
     glBindVertexArray(0);
     
+    unsigned int N = 8;
+    unsigned int M = 8;
+    float a = 1.0f/static_cast<float>(N);
+	float b = 1.0f/static_cast<float>(M-1);
+    std::vector<float> positions;
+    std::vector<unsigned int> indices;
+    
+    positions.resize(3*4*(M-1)*N); // 3 floats per vertex, 4 vertices per quad, M-1 rows, N columns
+	indices.resize(3*2*(M-1)*N);  // 3 vertices per triangle, 2 triangles per quad, M-1 rows, N columns
+
+    float* p = &positions[0];
+    unsigned int* x = &indices[0];
+    unsigned int k = 0;
+    
+    //Create a vector of vertices for use with indexed rendering
+	for (unsigned int i=0; i<M-1; i++) {
+		for (unsigned int j=0; j<N; j++) {
+			// Create the four vertices in the "quad"
+			evaluateAt(a*j, b*i, p);
+			p+=3;
+			evaluateAt(a*(j+1), b*i, p);
+			p+=3;
+			evaluateAt(a*j, b*(i+1), p);
+			p+=3;
+			evaluateAt(a*(j+1), b*(i+1), p);
+			p+=3;
+            
+			//Create the indices for the upper left triangle
+			x[0] = k;
+			x[1] = k+1;
+			x[2] = k+2;
+			x+=3;
+			
+			//Create the indices for the lower right triangle
+			x[0] = k+1;
+			x[1] = k+2;
+			x[2] = k+3;
+			x+=3;
+            
+			k += 4;
+		}
+	}
+    
+    s_vert = new BO<GL_ARRAY_BUFFER>(positions.data(),sizeof(float)*(uint)positions.size());
+    s_ind = new BO<GL_ELEMENT_ARRAY_BUFFER>(indices.data(),sizeof(unsigned int)*(uint)indices.size());
+    this->indices = (uint)indices.size();
+    
     glBindVertexArray(vao[2]);
-	sphere->getVertices()->bind();
+	//sphere->getVertices()->bind();
+    s_vert->bind();
 	phong1->setAttributePointer("position", 3);
-	sphere->getVertices()->unbind(); //Unbinds both vertices and normals
+	//sphere->getVertices()->unbind(); //Unbinds both vertices and normals
+    s_vert->unbind();
+    s_ind->bind();
 	glBindVertexArray(0);
     
     CHECK_GL_ERRORS();
@@ -286,6 +352,14 @@ void AppManager::createFBO(){
     gBuffer = new TextureFBO(window_width, window_height, 3, true);
     
     CHECK_GL_ERRORS();
+}
+
+void AppManager::evaluateAt(float u, float v, float* pos) {
+	static const double PI = 3.14159265;
+    
+	pos[0] = (float)(2.0 * std::sin(u*2*PI) * std::cos(v*2*PI));
+	pos[1] = (float)(2.0 * std::sin(u*2*PI) * std::sin(v*2*PI));
+	pos[2] = (float)(2.0 * std::cos(u*2*PI));
 }
 
 void AppManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {

@@ -52,7 +52,7 @@ private:
     /**
 	 * Function that handles rendering into the OpenGL context
 	 */
-    void renderModel(TextureFBO* target, Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor);
+    void renderModel(Program* shader, glm::mat4& proj, glm::mat4& mw, glm::mat3& nor);
     
 	/**
 	 * Function that handles rendering into the OpenGL context
@@ -87,6 +87,11 @@ private:
 	void createFBO();
     
     /**
+     * Evaluate spherical coordinate
+     */
+    void evaluateAt(float u, float v, float* pos);
+    
+    /**
      * Callback for GLFW key press
      */
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -112,6 +117,9 @@ private:
     static const unsigned int window_width  = 800;
 	static const unsigned int window_height = 600;
     
+    static const unsigned int n_lights = 100;
+    static const unsigned int n_models = 25;
+    
     // GLFW window handle
     GLFWwindow* window;
     
@@ -123,10 +131,17 @@ private:
     BO<GL_ARRAY_BUFFER>* vert;
     BO<GL_ELEMENT_ARRAY_BUFFER>* ind;
     
+    BO<GL_ARRAY_BUFFER>* s_vert;
+    BO<GL_ELEMENT_ARRAY_BUFFER>* s_ind;
+    unsigned int indices;
+    
     // Model to render
     Model* model;
     Model* sphere;
     GLuint vao[3];
+    
+    // Model transformations
+    glm::mat4 trans[n_models];
     
     // Programs
     Program* phong;
@@ -140,7 +155,7 @@ private:
 		glm::vec3 position;
         glm::vec3 diffuse;
         glm::vec3 specular;
-	} light[4];
+	} light[n_lights];
     
 	struct {
 		glm::mat4 projection;

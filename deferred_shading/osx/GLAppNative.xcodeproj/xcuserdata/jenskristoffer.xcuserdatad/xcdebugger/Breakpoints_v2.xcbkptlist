@@ -41,7 +41,7 @@
                   symbolName = "GLUtils::checkGLErrors(char const*, unsigned int)"
                   moduleName = "GLAppNative"
                   urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "412560904.397881"
+                  timestampString = "413158909.029304"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
@@ -55,7 +55,7 @@
                   symbolName = "GLUtils::checkGLErrors(char const*, unsigned int)"
                   moduleName = "GLAppNative"
                   urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "412560904.398225"
+                  timestampString = "413158909.029659"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
@@ -87,7 +87,7 @@
                   symbolName = "GLUtils::checkGLFBOCompleteness(char const*, unsigned int)"
                   moduleName = "GLAppNative"
                   urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "412560904.398829"
+                  timestampString = "413158909.030025"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -101,7 +101,7 @@
                   symbolName = "GLUtils::checkGLFBOCompleteness(char const*, unsigned int)"
                   moduleName = "GLAppNative"
                   urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/GLUtils/GLUtils.hpp"
-                  timestampString = "412560904.399207"
+                  timestampString = "413158909.030364"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -134,11 +134,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GLAppNative/AppManager.cpp"
-            timestampString = "412560666.976544"
+            timestampString = "413156281.121252"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "AppManager::render()"
             landmarkType = "5">
          </BreakpointContent>
@@ -173,6 +173,190 @@
             endingLineNumber = "25"
             landmarkName = "Model::Model(std::string filename, bool invert)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GLAppNative/AppManager.cpp"
+            timestampString = "413155999.964701"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "AppManager::init()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GLAppNative/AppManager.cpp"
+            timestampString = "413156642.371572"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "AppManager::render()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AppManager::render()"
+                  moduleName = "GLAppNative"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/AppManager.cpp"
+                  timestampString = "413155382.722655"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
+                  offsetFromSymbolStart = "254">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "non-virtual thunk to std::__1::basic_stringstream&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;::~basic_stringstream()"
+                  moduleName = "GLAppNative"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/AppManager.cpp"
+                  timestampString = "413155382.723004"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GLAppNative/AppManager.cpp"
+            timestampString = "413156642.371572"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "AppManager::render()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GLAppNative/AppManager.cpp"
+            timestampString = "413156642.371572"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "AppManager::render()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GLAppNative/AppManager.cpp"
+            timestampString = "413156341.092473"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "AppManager::init()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GLAppNative/AppManager.cpp"
+            timestampString = "413158694.853267"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
+            landmarkName = "AppManager::createVAO()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AppManager::createVAO()"
+                  moduleName = "GLAppNative"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/AppManager.cpp"
+                  timestampString = "413158694.891907"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "336"
+                  endingLineNumber = "336"
+                  offsetFromSymbolStart = "3174">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AppManager::createVAO()"
+                  moduleName = "GLAppNative"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/AppManager.cpp"
+                  timestampString = "413158694.893269"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "336"
+                  endingLineNumber = "336"
+                  offsetFromSymbolStart = "3222">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AppManager::createVAO()"
+                  moduleName = "GLAppNative"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/AppManager.cpp"
+                  timestampString = "413158694.893649"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "336"
+                  endingLineNumber = "336"
+                  offsetFromSymbolStart = "3241">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AppManager::createVAO()"
+                  moduleName = "GLAppNative"
+                  urlString = "file:///Users/jenskristoffer/Documents/experiments/Advanced-visualization/deferred_shading/osx/GLAppNative/AppManager.cpp"
+                  timestampString = "413158694.8942"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "336"
+                  endingLineNumber = "336"
+                  offsetFromSymbolStart = "3251">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
